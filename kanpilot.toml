@@ -28,6 +28,17 @@ name = "To Do"
   priority = "Normal"
   linkCommits = [ ]
 
+  [[processes.tasks]]
+  id = "jtwzhab07n3du18v1ac9mxeu"
+  title = "GUI"
+  description = "<p>Implement frontend base class using JavaFX</p>"
+  tag = "backlog"
+  linkFiles = [ ]
+  dueDate = "2024-12-26T23:00:00.000Z"
+  checkList = [ ]
+  priority = "Normal"
+  linkCommits = [ ]
+
 [[processes]]
 id = "process2"
 name = "In Progress"
