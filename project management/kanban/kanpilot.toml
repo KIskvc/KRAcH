@@ -1,0 +1,39 @@
+name = "KRAcH"
+skipFolders = [ "node_modules", ".vscode", "out", "dist", ".vscode-test" ]
+skipFiles = [ ".gitignore", "package.json" ]
+
+[[processes]]
+id = "process1"
+name = "To Do"
+
+  [[processes.tasks]]
+  id = "task1"
+  title = "Create Main Classes"
+  description = "<p></p>"
+  tag = "backlog"
+  linkFiles = [ ]
+  dueDate = "2024-12-19T23:00:00.000Z"
+  checkList = [ ]
+  priority = "High"
+  linkCommits = [ ]
+
+  [[processes.tasks]]
+  id = "mawg0u1z35fvowst4xvh1p2f"
+  title = "Implement Play Game Logic"
+  description = "<p>Interconnect the classes within the main class and implement logic for PlayGame() Method.</p>"
+  tag = "backlog"
+  linkFiles = [ ]
+  dueDate = "2024-12-26T23:00:00.000Z"
+  checkList = [ ]
+  priority = "Normal"
+  linkCommits = [ ]
+
+[[processes]]
+id = "process2"
+name = "In Progress"
+tasks = [ ]
+
+[[processes]]
+id = "process3"
+name = "Done"
+tasks = [ ]
