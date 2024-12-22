@@ -5,13 +5,13 @@ classDiagram
 	class Card
 	Card : -String rank
 	Card : -String suit
-	Card : getValue() int
-	Card : getImage() String
+	Card : +getValue() int
+	Card : +getImage() String
 
 	class Deck
-	Deck : ArrayList<Card> cards
-	Deck : shuffleDeck() void
-	Deck : dealCard() Card
+	Deck : -ArrayList<Card> cards
+	Deck : +shuffleDeck() void
+	Deck : +dealCard() Card
 
 	Deck "1" --> "*" Card
 
@@ -23,39 +23,45 @@ classDiagram
 	Hand : +AddCard()
 	Hand : +Split()	
 	
-	class Player
-	Player : -String name
-	Player : -Hand hand
-	Player : +playTurn () void
-	
-	class NormalPlayer extends Player
-	NormalPlayer : -int balance
-	NormalPlayer : +GetBalance() int
-	NormalPlayer : +SetBalance() void
-	NormalPlayer : +placeBet() int
-	NormalPlayer : +Player.playTurn()
+	class BasePlayer
+	BasePlayer : -String name
+	BasePlayer : -Hand hand
+	BasePlayer : +abstract playTurn () void
 
-	class Dealer extends Player
-	Dealer : +Player.playTurn()
+	BasePlayer "1" --> "1" Hand
+
+	class Player
+	Player : -int balance
+	Player : +GetBalance() int
+	Player : +SetBalance() void
+	Player : +placeBet() int
+	Player : +playTurn()
+	Player : +hit() void
+	Player : +stand() void
+	Player : split() void
+	Player : double() void
+	
+	class Dealer
+	Dealer : +playTurn() void
+	Dealer : +takeCard() void
+	Dealer : +offerInsurance() void
+
+	BasePlayer <|-- Player
+	BasePlayer <|-- Dealer
 
 	class Game
 	Game : -ArrayList<Player> players
-	Game : -int pot
 	Game : -int minimumBet
-	Game : -int playerRaise
 	Game : -Deck deck
-	Game : +GetPot() int
-	Game : +SetPot() void
 	Game : +GetMinimumBet() int
 	Game : +SetMinimumBet() void
-	Game : raise ??
-	Game : initializeGame() void
-	Game : playRound() void
-	Game : determineWinner() void
-	Game : resetRound() void
-	Game : leaveGame(player) void	
+	Game : +initializeGame() void
+	Game : +playRound() void
+	Game : +determineWinner() void
+	Game : +resetRound() void
+	Game : +leaveGame(player) void	
 
-	Game "1" --> "1..*" Player
+	Game "1" --> "1..*" BasePlayer
 	Game "1" --> "1" Deck
 
 	class Application
