@@ -9,6 +9,7 @@ public class Game {
     private int MinimumBet;
     private int PlayerRaise;
     private Deck Deck;
+    private int wasauchimmer;
 
     public Game(int pot, ArrayList<?> player, int minimumBet, Deck deck) {
         Pot = pot;
