@@ -14,15 +14,29 @@ classDiagram
 	Deck : dealCard() Card
 
 	Deck "1" --> "*" Card
+
+	class Hand
+	Hand : -ArrayList<Cards> cards
+	Hand : -ArrayList<Cards>? splittedCards
+	Hand : -int currentScore
+	Hand : +GetCurrentScore()
+	Hand : +AddCard()
+	Hand : +Split()	
 	
 	class Player
 	Player : -String name
-	Player : -int balance
-	Player : -ArrayList<Card> hand
-	Player : +GetBalance() int
-	Player : +SetBalance() void
-	Player : placeBet() int
-	Player : playTurn () void
+	Player : -Hand hand
+	Player : +playTurn () void
+	
+	class NormalPlayer extends Player
+	NormalPlayer : -int balance
+	NormalPlayer : +GetBalance() int
+	NormalPlayer : +SetBalance() void
+	NormalPlayer : +placeBet() int
+	NormalPlayer : +Player.playTurn()
+
+	class Dealer extends Player
+	Dealer : +Player.playTurn()
 
 	class Game
 	Game : -ArrayList<Player> players
