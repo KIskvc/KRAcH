@@ -1,22 +1,12 @@
-package at.ac.fhcampuswien.blackjack.models;
-
-import java.util.ArrayList;
-
-public class Player {
-    private String name;
+public class Player extends BasePlayer {
     private int balance;
-    private ArrayList<Card> hand;
 
     public Player(String name, int balance) {
-        this.name = name;
+        super(name);
         this.balance = balance;
-        this.hand = new ArrayList<>();
     }
 
-    public String getName() {
-        return name;
-    }
-
+    // Getters and Setters
     public int getBalance() {
         return balance;
     }
@@ -25,26 +15,34 @@ public class Player {
         this.balance = balance;
     }
 
-    public ArrayList<Card> getHand() {
-        return hand;
-    }
-
-    public int placeBet(int betAmount) {
-        if (betAmount > 0 && betAmount <= balance) {
-            balance -= betAmount;
-            return betAmount;
+    // Methods
+    public void placeBet(int amount) {
+        if (amount <= balance) {
+            balance -= amount;
+            System.out.println(name + " placed a bet of " + amount);
         } else {
-            System.out.println("Ungültiger Einsatzbetrag.");
-            return 0;
+            System.out.println("Insufficient balance to place the bet.");
         }
     }
 
+    @Override
     public void playTurn() {
-        System.out.println(name + " ist an der Reihe.");
+        System.out.println(name + " is playing their turn.");
     }
 
-    public void addCardToHand(Card card) {
-        hand.add(card);
+    public void hit() {
+        System.out.println(name + " chooses to hit.");
+    }
+
+    public void stand() {
+        System.out.println(name + " chooses to stand.");
+    }
+
+    public void split() {
+        System.out.println(name + " chooses to split.");
+    }
+
+    public void doubleBet() {
+        System.out.println(name + " chooses to double the bet.");
     }
 }
-
