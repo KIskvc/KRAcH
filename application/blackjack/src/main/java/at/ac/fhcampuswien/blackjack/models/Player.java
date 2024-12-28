@@ -25,7 +25,6 @@ public class Player extends BasePlayer {
         }
     }
 
-
     @Override
     public void playTurn() {
         System.out.println(name + " is playing their turn.");
