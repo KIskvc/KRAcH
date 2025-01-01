@@ -4,41 +4,13 @@ import java.util.ArrayList;
 
 public class Game {
 
-    private ArrayList<?> Player;
-    private int Pot;
-    private int MinimumBet;
-    private int PlayerRaise;
+    private ArrayList<Player> Player;
+    private Object Dealer;
     private Deck Deck;
 
-    public Game(int pot, ArrayList<?> player, int minimumBet, Deck deck) {
-        Pot = pot;
+    public Game(int pot, ArrayList<Player> player, Object dealer) {
         Player = player;
-        MinimumBet = minimumBet;
-        Deck = deck;
-    }
-
-    public int getPot() {
-        return Pot;
-    }
-
-    public void setPot(int pot) {
-        Pot = pot;
-    }
-
-    public int getMinimumBet() {
-        return MinimumBet;
-    }
-
-    public void setMinimumBet(int minimumBet) {
-        MinimumBet = minimumBet;
-    }
-
-    public int getPlayerRaise() {
-        return PlayerRaise;
-    }
-
-    public void setPlayerRaise(int playerRaise) {
-        PlayerRaise = playerRaise;
+        Dealer = dealer;
     }
 
     public ArrayList<?> getPlayer() {
@@ -46,19 +18,25 @@ public class Game {
     }
 
     public void initializeGame() {
+        this.Deck = new Deck();
+        this.Deck.shuffleDeck();
 
+        for(int i = 0; i < 2; i++) {
+            for(Player player : Player) {
+                player.hand.addCard(Deck.dealCard());
+            }
+            // Dealer Code
+        }
     }
 
     public void playRound() {
-
+        for(Player player : Player) {
+            player.playTurn();
+        }
     }
 
-//    public Player determineWinner() {
-//
-//    }
-
-    public void resetRound() {
-
+    public void determineWinner() {
+        // Check if dealer won.
     }
 
     public void leaveGame() {

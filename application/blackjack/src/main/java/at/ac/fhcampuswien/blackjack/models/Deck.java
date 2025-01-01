@@ -28,10 +28,11 @@ public class Deck {
 
     public void shuffleDeck(){
         Collections.shuffle(this.deck);
-
     }
 
     public Card dealCard(){
-        return this.deck.remove(0);
+        Card firstCard = this.deck.getFirst();
+        this.deck.removeFirst();
+        return firstCard;
     }
 }
