@@ -25,5 +25,5 @@ public abstract class BasePlayer {
         this.hand = hand;
     }
 
-    public abstract void playTurn();
+    public abstract void playTurn(Game game);
 }
