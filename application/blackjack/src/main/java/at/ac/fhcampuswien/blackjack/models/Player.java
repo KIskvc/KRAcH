@@ -30,7 +30,7 @@ public class Player extends BasePlayer {
         this.currentBet = currentBet;
     }
 
-    public void placeBet(int amount, Game game) {
+    public void placeBet(int amount) {
         if (amount <= balance) {
             balance -= amount;
             currentBet += amount;
@@ -41,7 +41,7 @@ public class Player extends BasePlayer {
     }
 
     @Override
-    public void playTurn() {
+    public void playTurn(Game game) {
         System.out.println(name + " is playing their turn.");
     }
 
