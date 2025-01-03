@@ -51,7 +51,6 @@ public class Hand {
             splittedCards.add(secondHand);
 
             cards.clear();
-            //return splittedCards.size();
         }
     }
 
