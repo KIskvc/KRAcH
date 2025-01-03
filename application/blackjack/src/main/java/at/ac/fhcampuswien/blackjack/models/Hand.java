@@ -32,12 +32,12 @@ public class Hand {
         return currentScore;
     }
 
-    public int addCard(Card card) {
+    public void addCard(Card card) {
             cards.add(card); //fügt die Karte zur Hand hinzu
-            return getCurrentScore(); //aktualisiert den Punktestand
+            //return getCurrentScore(); //aktualisiert den Punktestand
     }
 
-    public int split(Card card) {
+    public void split(Card card) {
             //überprüfen, ob ein Split möglich ist: genau 2 Karten mit gleichem Wert
         if (cards.size() == 2 && cards.get(0).getValue() == cards.get(1).getValue()) {
             splittedCards = new ArrayList<>();
@@ -51,7 +51,7 @@ public class Hand {
             splittedCards.add(secondHand);
 
             cards.clear();
-            return splittedCards.size();
+            //return splittedCards.size();
         }
     }
 
