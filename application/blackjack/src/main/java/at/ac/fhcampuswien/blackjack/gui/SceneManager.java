@@ -29,7 +29,7 @@ public class SceneManager {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
             Parent root = loader.load();
-            Scene scene = new Scene(root, 320, 240);
+            Scene scene = new Scene(root, 1200, 844);
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (IOException e) {
