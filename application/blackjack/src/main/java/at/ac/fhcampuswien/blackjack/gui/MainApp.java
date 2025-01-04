@@ -13,12 +13,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Label label = new Label("Welcome to Blackjack!");
-        VBox root = new VBox(10, label);
-        Scene scene = new Scene(root, 800, 600);
-
-        primaryStage.setTitle("Blackjack Game");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        SceneManager.getInstance().setPrimaryStage(primaryStage, "Welcome to Blackjack!");
+        SceneManager.getInstance().switchScene("main-view.fxml");
     }
 }
