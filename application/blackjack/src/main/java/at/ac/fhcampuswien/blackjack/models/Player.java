@@ -30,13 +30,10 @@ public class Player extends BasePlayer {
         this.currentBet = currentBet;
     }
 
-    public void placeBet(int amount, Game game) {
-        if (amount < game.getMinimumBet()) {
-            System.out.println(name + " cannot bet less than the minimum bet of " + game.getMinimumBet());
-        } else if (amount <= balance) {
+    public void placeBet(int amount) {
+        if (amount <= balance) {
             balance -= amount;
             currentBet += amount;
-            game.setPot(game.getPot() + amount);
             System.out.println(name + " placed a bet of " + amount + ". Current balance: " + balance);
         } else {
             System.out.println(name + " does not have enough balance to place the bet.");
@@ -44,7 +41,7 @@ public class Player extends BasePlayer {
     }
 
     @Override
-    public void playTurn() {
+    public void playTurn(Game game) {
         System.out.println(name + " is playing their turn.");
     }
 
@@ -73,7 +70,6 @@ public class Player extends BasePlayer {
         if (doubleAmount <= balance) {
             balance -= doubleAmount;
             currentBet += doubleAmount;
-            game.setPot(game.getPot() + doubleAmount);
             System.out.println(name + " doubles the bet to " + doubleAmount);
             hit(deck);
         } else {
