@@ -14,7 +14,7 @@ public class MainController {
 
     @FXML
     public void startGame() {
-        //SceneManager.getInstance().switchScene("exit-view.fxml");
+        SceneManager.getInstance().switchScene("game-view.fxml");
     }
 
 }
