@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="844.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.ac.fhcampuswien.blackjack.gui.MainController">
+   <Pane maxWidth="1200.0" prefHeight="844.0">
+      <children>
+         <!-- Hintergrundbild -->
+         <ImageView fitHeight="844.0" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../../../../../images/game_screen.png" />
+            </image>
+         </ImageView>
+
+         <!-- Buttons -->
+         <Button fx:id="hit" layoutX="50.0" layoutY="787.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #8B0000; -fx-background-radius: 15px;" text="HIT" textAlignment="CENTER" textFill="WHITE">
+            <font>
+               <Font name="Arial" size="20.0" />
+            </font>
+            <effect>
+               <DropShadow height="50.0" offsetX="5.0" offsetY="5.0" radius="24.5" width="50.0">
+                  <color>
+                     <Color opacity="0.55" />
+                  </color>
+               </DropShadow>
+            </effect>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </Button>
+
+         <Button fx:id="stand" layoutX="200.0" layoutY="787.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #8B0000; -fx-background-radius: 15px;" text="STAND" textAlignment="CENTER" textFill="WHITE">
+            <font>
+               <Font name="Arial" size="20.0" />
+            </font>
+            <effect>
+               <DropShadow height="50.0" offsetX="5.0" offsetY="5.0" radius="24.5" width="50.0">
+                  <color>
+                     <Color opacity="0.55" />
+                  </color>
+               </DropShadow>
+            </effect>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </Button>
+
+         <Button fx:id="doppelt" layoutX="350.0" layoutY="787.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #8B0000; -fx-background-radius: 15px;" text="DOUBLE" textAlignment="CENTER" textFill="WHITE">
+            <font>
+               <Font name="Arial" size="20.0" />
+            </font>
+            <effect>
+               <DropShadow height="50.0" offsetX="5.0" offsetY="5.0" radius="24.5" width="50.0">
+                  <color>
+                     <Color opacity="0.55" />
+                  </color>
+               </DropShadow>
+            </effect>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </Button>
+
+         <Button fx:id="split" layoutX="500.0" layoutY="787.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #8B0000; -fx-background-radius: 15px;" text="SPLIT" textAlignment="CENTER" textFill="WHITE">
+            <font>
+               <Font name="Arial" size="20.0" />
+            </font>
+            <effect>
+               <DropShadow height="50.0" offsetX="5.0" offsetY="5.0" radius="24.5" width="50.0">
+                  <color>
+                     <Color opacity="0.55" />
+                  </color>
+               </DropShadow>
+            </effect>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </Button>
+
+         <Button fx:id="leave" layoutX="1060.0" layoutY="787.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #8B0000; -fx-background-radius: 15px;" text="LEAVE" textAlignment="CENTER" textFill="WHITE">
+            <font>
+               <Font name="Arial" size="20.0" />
+            </font>
+            <effect>
+               <DropShadow height="50.0" offsetX="5.0" offsetY="5.0" radius="24.5" width="50.0">
+                  <color>
+                     <Color opacity="0.55" />
+                  </color>
+               </DropShadow>
+            </effect>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </Button>
+      </children>
+   </Pane>
+</VBox>
