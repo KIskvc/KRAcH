@@ -8,7 +8,7 @@ public class Game {
     private Dealer Dealer;
     private Deck Deck;
 
-    public Game(int pot, ArrayList<Player> player, Dealer dealer) {
+    public Game(ArrayList<Player> player, Dealer dealer) {
         Player = player;
         Dealer = dealer;
     }
