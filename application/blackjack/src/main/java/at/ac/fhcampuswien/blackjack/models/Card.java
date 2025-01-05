@@ -1,5 +1,7 @@
 package at.ac.fhcampuswien.blackjack.models;
 
+import java.nio.file.Path;
+
 public class Card {
     private String rank;
     private String suit;
@@ -50,8 +52,8 @@ public class Card {
     }
 
     public String getImage(){
-        return "pfad oder name" + rank + suit;
+        String name = rank + "_of_" + suit + ".png";
+        return Path.of("\\KRAcH\\application\\blackjack\\src\\main\\java\\resources\\cards", name).toAbsolutePath().toString();
     }
-
 }
 
