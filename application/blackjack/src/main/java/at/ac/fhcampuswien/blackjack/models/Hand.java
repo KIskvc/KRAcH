@@ -9,6 +9,11 @@ public class Hand {
     private ArrayList<ArrayList<Card>> splittedCards;;
     private int currentScore;
 
+    public Hand() {
+        this.cards = new ArrayList<>();
+        this.currentScore = getCurrentScore();
+    }
+
     public int getCurrentScore() {
         int score = 0;
         int aceCount = 0;
@@ -33,7 +38,7 @@ public class Hand {
     }
 
     public void addCard(Card card) {
-            cards.add(card); //fügt die Karte zur Hand hinzu
+            this.cards.add(card); //fügt die Karte zur Hand hinzu
             //return getCurrentScore(); //aktualisiert den Punktestand
     }
 

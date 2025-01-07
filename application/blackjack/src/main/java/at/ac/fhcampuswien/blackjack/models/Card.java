@@ -1,6 +1,9 @@
 package at.ac.fhcampuswien.blackjack.models;
 
+import javafx.scene.image.Image;
+
 import java.nio.file.Path;
+import java.util.Objects;
 
 public class Card {
     private String rank;
@@ -20,7 +23,7 @@ public class Card {
 
     public int getValue() {
         switch (rank) {
-            case "A":
+            case "ace":
                 return 11;
             case "2":
                 return 2;
@@ -40,11 +43,11 @@ public class Card {
                 return 9;
             case "10":
                 return 10;
-            case "K":
+            case "king":
                 return 10;
-            case "Q":
+            case "queen":
                 return 10;
-            case "J":
+            case "jack":
                 return 10;
             default:
                 return 0;
@@ -53,7 +56,9 @@ public class Card {
 
     public String getImage(){
         String name = rank + "_of_" + suit + ".png";
-        return Path.of("\\KRAcH\\application\\blackjack\\src\\main\\java\\resources\\cards", name).toAbsolutePath().toString();
+        return "/cards/" + name;
+        //Image newCardImage = new Image(Objects.requireNonNull(getClass().getResource("/cards/2_of_spades.png")).toExternalForm());
+
     }
 
 }
