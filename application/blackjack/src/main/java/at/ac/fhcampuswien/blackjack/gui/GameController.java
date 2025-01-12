@@ -1,14 +1,12 @@
 package at.ac.fhcampuswien.blackjack.gui;
 
 import at.ac.fhcampuswien.blackjack.models.*;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-
-import java.awt.*;
+import javafx.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -84,6 +82,12 @@ public class GameController {
             } else {
                 currentHbox = dealerHand;
             }
+
+            /*if(player instanceof Dealer && currentPlayerHand.getCards().size() != 1) {
+                int score = currentPlayerHand.getCurrentScore();
+
+            }*/
+
             String path = currentCard.getImage();
             Image newCardImage = new Image(Objects.requireNonNull(getClass().getResource(path)).toExternalForm());
             ImageView newCard = new ImageView();
@@ -95,5 +99,14 @@ public class GameController {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void revealDealerCard() {
+
+    }
+
+    @FXML
+    public void handleLeaveButton(ActionEvent event) {
+        SceneManager.getInstance().switchScene("main-view.fxml");
     }
 }
