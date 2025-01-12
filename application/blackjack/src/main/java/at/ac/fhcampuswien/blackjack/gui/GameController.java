@@ -26,7 +26,7 @@ public class GameController {
     private ArrayList<Player> player = new ArrayList<>();
     private static final int STARTBALANCE = 1000;
     private Game game;
-    private Player currentPlayer;
+    private Player playerCurrent;
 
     @FXML
     public void initialize() throws InterruptedException {
@@ -44,16 +44,16 @@ public class GameController {
     //Change currentPlayer to next Player.
     public void setNextPlayer() {
         try {
-            if(currentPlayer == null) {
-                currentPlayer = player.getFirst();
+            if(playerCurrent == null) {
+                playerCurrent = player.getFirst();
 
             } else {
-                int indexOfCurrentPlayer = player.indexOf(currentPlayer);
+                int indexOfCurrentPlayer = player.indexOf(playerCurrent);
                 int indexOfNewPlayer = indexOfCurrentPlayer + 1;
                 if(indexOfNewPlayer >= player.size()-1) {
                     indexOfNewPlayer = 0;
                 }
-                currentPlayer = player.get(indexOfNewPlayer);
+                playerCurrent = player.get(indexOfNewPlayer);
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
