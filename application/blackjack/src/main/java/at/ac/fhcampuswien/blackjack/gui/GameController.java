@@ -39,7 +39,7 @@ public class GameController {
 
     private ArrayList<Player> player = new ArrayList<>();
     private static final int STARTBALANCE = 1000;
-    private Player currentPlayer;
+    private Player playerCurrent;
     private Game game;
     int currentPlayer = 0;
 
@@ -54,28 +54,58 @@ public class GameController {
         player.add(player2);
         player.add(player3);
         //initGame();
-        placeBetText.setText(player.getFirst().getName() + ", place your bet!");
-        placeBetBox.setVisible(true);
+//        placeBetText.setText(player.getFirst().getName() + ", place your bet!");
+//        placeBetBox.setVisible(true);
+    }
+
+    //Change currentPlayer to next Player.
+    public void setNextPlayer() {
+        try {
+            if(playerCurrent == null) {
+                playerCurrent = player.getFirst();
+
+            } else {
+                int indexOfCurrentPlayer = player.indexOf(playerCurrent);
+                int indexOfNewPlayer = indexOfCurrentPlayer + 1;
+                if(indexOfNewPlayer >= player.size()-1) {
+                    indexOfNewPlayer = 0;
+                }
+                playerCurrent = player.get(indexOfNewPlayer);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @FXML
     public void hit() {
-        Image newCardImage = new Image(Objects.requireNonNull(getClass().getResource("/cards/2_of_spades.png")).toExternalForm());
+        //Variante 1
+        Player currentPlayer = player.get(0);
+        Card drawnCard = currentPlayer.hit(game.getDeck());
+
+        //Variante 2
+//        Hand currentHand = player.get(0).getHand();
+//        Deck currentDeck = game.getDeck();
+//        currentHand.addCard(currentDeck.dealCard());
+
+        //Add Card to current player hand.
+        //Update Deck
+        String path = drawnCard.getImage();
+        Image newCardImage = new Image(Objects.requireNonNull(getClass().getResource(path)).toExternalForm());
         ImageView newCard = new ImageView();
         newCard.setFitWidth(50);
         newCard.setPickOnBounds(true);
         newCard.setPreserveRatio(true);
         newCard.setImage(newCardImage);
         firstHand.getChildren().add(newCard);
+        //Get hand from currentPlayer (e.g. firstHand) and add Card.
+        //firstHand.getChildren().add(newCard);
     }
 
     @FXML
     public void initGame() throws InterruptedException {
         playButton.setVisible(false);
         game.initializeGame();
-        if (!player.isEmpty()) {
-            currentPlayer = player.get(0);
-        }
         Deck currentDeck = game.getDeck();
         for(int i = 0; i < 2; i++) {
             int handcounter = 0;
@@ -179,14 +209,14 @@ public class GameController {
 
     @FXML
     public void handleStandButton(ActionEvent event) {
-        if (currentPlayer != null) {
-            currentPlayer.stand();
+        if (playerCurrent != null) {
+            playerCurrent.stand();
 
-            int currentIndex = player.indexOf(currentPlayer);
+            int currentIndex = player.indexOf(playerCurrent);
             if (currentIndex < player.size() - 1) {
-                currentPlayer = player.get(currentIndex + 1);
+                playerCurrent = player.get(currentIndex + 1);
             } else {
-                currentPlayer = null;
+                playerCurrent = null;
                 Dealer dealer = game.getDealer();
                 dealer.playTurn(game);
 
