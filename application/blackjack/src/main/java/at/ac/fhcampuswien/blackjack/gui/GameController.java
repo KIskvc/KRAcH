@@ -29,5 +29,18 @@ public class GameController {
     public void handleLeaveButton(ActionEvent event) {
         SceneManager.getInstance().switchScene("main-view.fxml");
     }
+
+    @FXML
+    public void handleStandButton(ActionEvent event) {
+        if (player != null && !player.isEmpty()) {
+            Player currentPlayer = player.get(0);
+            currentPlayer.stand();
+            System.out.println(currentPlayer.getName() + " hat gestanden.");
+            Dealer dealer = new Dealer("Mr.MakeYouBroke");
+            dealer.playTurn(new Game(player, dealer));
+        } else {
+            System.out.println("Kein Spieler verfügbar.");
+        }
+    }
 }
 
