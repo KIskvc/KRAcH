@@ -5,6 +5,7 @@
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
@@ -20,6 +21,7 @@
             </image>
          </ImageView>
 
+         <!-- Buttons -->
          <Button fx:id="hit" layoutX="50.0" layoutY="787.0" mnemonicParsing="false" onAction="#hit" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #8B0000; -fx-background-radius: 15px;" text="HIT" textAlignment="CENTER" textFill="WHITE">
             <font>
                <Font name="Arial" size="20.0" />
@@ -84,7 +86,7 @@
             </cursor>
          </Button>
 
-         <Button fx:id="leave" layoutX="1060.0" layoutY="787.0" mnemonicParsing="false" onAction="#handleLeaveButton" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #8B0000; -fx-background-radius: 15px;" text="LEAVE" textAlignment="CENTER" textFill="WHITE">
+         <Button fx:id="leave" layoutX="1060.0" layoutY="787.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #8B0000; -fx-background-radius: 15px;" text="LEAVE" textAlignment="CENTER" textFill="WHITE">
             <font>
                <Font name="Arial" size="20.0" />
             </font>
@@ -108,17 +110,6 @@
             </image>
          </ImageView>
          <HBox fx:id="dealerHand" alignment="CENTER" layoutX="500.0" layoutY="324.0" prefHeight="70.0" prefWidth="180.0" rotate="180.0" />
-         <Button fx:id="playButton" layoutX="525.0" layoutY="449.0" mnemonicParsing="false" onAction="#initGame" prefWidth="150.0" style="-fx-background-color: #026D36; -fx-background-radius: 20px; -fx-opacity: 0.8;" text="Play" textAlignment="CENTER" textFill="WHITE">
-            <font>
-               <Font name="Arial" size="24.0" />
-            </font>
-            <cursor>
-               <Cursor fx:constant="HAND" />
-            </cursor>
-            <opaqueInsets>
-               <Insets />
-            </opaqueInsets>
-         </Button>
       </children>
    </Pane>
 </VBox>

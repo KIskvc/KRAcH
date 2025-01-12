@@ -9,7 +9,6 @@ public class Player extends BasePlayer {
     public Player(String name, int balance) {
         super(name);
         this.balance = balance;
-        this.hand = new Hand();
         this.currentBet = 0;
     }
 
