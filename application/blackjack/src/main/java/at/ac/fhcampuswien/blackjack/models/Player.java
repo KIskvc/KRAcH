@@ -44,10 +44,11 @@ public class Player extends BasePlayer {
         System.out.println(name + " is playing their turn.");
     }
 
-    public void hit(Deck deck) {
+    public Card hit(Deck deck) {
         Card drawnCard = deck.dealCard();
         this.hand.addCard(drawnCard);
         System.out.println(name + " drew a card: " + drawnCard.getRank() + " of " + drawnCard.getSuit());
+        return drawnCard;
     }
 
     public void stand() {
