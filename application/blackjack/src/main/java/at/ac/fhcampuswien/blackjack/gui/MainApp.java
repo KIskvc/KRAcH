@@ -14,6 +14,6 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         SceneManager.getInstance().setPrimaryStage(primaryStage, "Welcome to Blackjack!");
-        SceneManager.getInstance().switchScene("main-view.fxml");
+        SceneManager.getInstance().switchScene("player-screen-view.fxml");
     }
 }
