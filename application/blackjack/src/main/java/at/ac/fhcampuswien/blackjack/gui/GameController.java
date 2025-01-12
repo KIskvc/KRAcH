@@ -7,8 +7,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.event.ActionEvent;
+import javafx.scene.control.TextField;
+
 import java.util.ArrayList;
 import java.util.Objects;
+import javafx.event.ActionEvent;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 public class GameController {
 
@@ -22,11 +28,20 @@ public class GameController {
     private HBox dealerHand;
     @FXML
     private Button playButton;
+    @FXML
+    private TextField betTextField;
+    @FXML
+    private Label errLabel;
+    @FXML
+    private VBox placeBetBox;
+    @FXML
+    private Text placeBetText;
 
     private ArrayList<Player> player = new ArrayList<>();
     private static final int STARTBALANCE = 1000;
-    private Game game;
     private Player playerCurrent;
+    private Game game;
+    int currentPlayer = 0;
 
     @FXML
     public void initialize() throws InterruptedException {
@@ -39,6 +54,8 @@ public class GameController {
         player.add(player2);
         player.add(player3);
         //initGame();
+        placeBetText.setText(player.getFirst().getName() + ", place your bet!");
+        placeBetBox.setVisible(true);
     }
 
     //Change currentPlayer to next Player.
@@ -80,6 +97,7 @@ public class GameController {
         newCard.setPickOnBounds(true);
         newCard.setPreserveRatio(true);
         newCard.setImage(newCardImage);
+        firstHand.getChildren().add(newCard);
         //Get hand from currentPlayer (e.g. firstHand) and add Card.
         //firstHand.getChildren().add(newCard);
     }
@@ -138,8 +156,72 @@ public class GameController {
 
     }
 
+    // Code block for placing bet
+    @FXML
+    public void handleBet(ActionEvent event) {
+        String betText = betTextField.getText();
+        int bet;
+
+
+        if (betText.isEmpty()) {
+            errLabel.setText("Please place a bet");
+            return;
+        }
+
+        try {
+            bet = Integer.parseInt(betText);  // Text in Zahl konvertieren
+        } catch (NumberFormatException e) {
+            errLabel.setText("Invalid! Please enter a number!");
+            return;
+        }
+
+        if (bet <= 0) {
+            errLabel.setText("Invalid bet! Please enter a positive number!");
+            return;
+        } else if (bet > player.get(currentPlayer).getBalance()) {
+            errLabel.setText("Brokieee! Place a valid bet!");
+            return;
+        }
+        player.get(currentPlayer).setCurrentBet(bet);
+        player.get(currentPlayer).placeBet(bet);
+
+        betTextField.clear();
+        errLabel.setText("");
+
+        currentPlayer++;
+
+        if (currentPlayer < player.size()) {
+            placeBetText.setText(player.get(currentPlayer).getName() + ", place your bet!");
+        } else {
+            placeBetBox.setVisible(false);
+        }
+    }
+
+    public void handleSubmitBet (ActionEvent actionEvent){
+        handleBet(actionEvent);
+    }
+    // Code block for placing bet
+
     @FXML
     public void handleLeaveButton(ActionEvent event) {
         SceneManager.getInstance().switchScene("main-view.fxml");
+    }
+
+    @FXML
+    public void handleStandButton(ActionEvent event) {
+        if (playerCurrent != null) {
+            playerCurrent.stand();
+
+            int currentIndex = player.indexOf(playerCurrent);
+            if (currentIndex < player.size() - 1) {
+                playerCurrent = player.get(currentIndex + 1);
+            } else {
+                playerCurrent = null;
+                Dealer dealer = game.getDealer();
+                dealer.playTurn(game);
+
+                revealDealerCard();
+            }
+        }
     }
 }

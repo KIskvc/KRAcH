@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.paint.Color?>
@@ -15,6 +13,7 @@
 <VBox prefHeight="844.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.ac.fhcampuswien.blackjack.gui.GameController">
    <Pane maxWidth="1200.0" prefHeight="844.0">
       <children>
+         <!-- Hintergrundbild -->
          <ImageView fitHeight="844.0" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@../../../../../images/game_screen.png" />
@@ -37,7 +36,9 @@
             </cursor>
          </Button>
 
-         <Button fx:id="stand" layoutX="200.0" layoutY="787.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #8B0000; -fx-background-radius: 15px;" text="STAND" textAlignment="CENTER" textFill="WHITE">
+         <Button fx:id="stand" layoutX="200.0" layoutY="787.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0"
+                 style="-fx-background-color: #8B0000; -fx-background-radius: 15px;"
+                 text="STAND" textAlignment="CENTER" textFill="WHITE" onAction="#handleStandButton">
             <font>
                <Font name="Arial" size="20.0" />
             </font>
