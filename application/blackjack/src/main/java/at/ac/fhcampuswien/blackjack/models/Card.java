@@ -58,7 +58,9 @@ public class Card {
         String name = rank + "_of_" + suit + ".png";
         return "/cards/" + name;
         //Image newCardImage = new Image(Objects.requireNonNull(getClass().getResource("/cards/2_of_spades.png")).toExternalForm());
-
+    }
+    public String getBackImage(){
+        return "/cards/back.png";
     }
 
 }

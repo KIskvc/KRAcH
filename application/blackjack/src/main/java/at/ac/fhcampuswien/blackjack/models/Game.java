@@ -17,6 +17,10 @@ public class Game {
         return Player;
     }
 
+    public at.ac.fhcampuswien.blackjack.models.Dealer getDealer() {
+        return Dealer;
+    }
+
     public Deck getDeck() {
         return this.Deck;
     }
