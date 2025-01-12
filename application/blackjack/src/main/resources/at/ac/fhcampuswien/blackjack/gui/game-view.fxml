@@ -37,7 +37,9 @@
             </cursor>
          </Button>
 
-         <Button fx:id="stand" layoutX="200.0" layoutY="787.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #8B0000; -fx-background-radius: 15px;" text="STAND" textAlignment="CENTER" textFill="WHITE">
+         <Button fx:id="stand" layoutX="200.0" layoutY="787.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0"
+                 style="-fx-background-color: #8B0000; -fx-background-radius: 15px;"
+                 text="STAND" textAlignment="CENTER" textFill="WHITE" onAction="#handleStandButton">
             <font>
                <Font name="Arial" size="20.0" />
             </font>

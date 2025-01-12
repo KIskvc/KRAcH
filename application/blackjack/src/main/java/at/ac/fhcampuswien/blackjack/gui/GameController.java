@@ -25,6 +25,7 @@ public class GameController {
 
     private ArrayList<Player> player = new ArrayList<>();
     private static final int STARTBALANCE = 1000;
+    private Player currentPlayer;
     private Game game;
 
     @FXML
@@ -55,6 +56,9 @@ public class GameController {
     public void initGame() throws InterruptedException {
         playButton.setVisible(false);
         game.initializeGame();
+        if (!player.isEmpty()) {
+            currentPlayer = player.get(0);
+        }
         Deck currentDeck = game.getDeck();
         for(int i = 0; i < 2; i++) {
             int handcounter = 0;
@@ -112,14 +116,19 @@ public class GameController {
 
     @FXML
     public void handleStandButton(ActionEvent event) {
-        if (player != null && !player.isEmpty()) {
-            Player currentPlayer = player.get(0);
+        if (currentPlayer != null) {
             currentPlayer.stand();
-            System.out.println(currentPlayer.getName() + " hat gestanden.");
-            Dealer dealer = new Dealer("Mr.MakeYouBroke");
-            dealer.playTurn(new Game(player, dealer));
-        } else {
-            System.out.println("Kein Spieler verfügbar.");
+
+            int currentIndex = player.indexOf(currentPlayer);
+            if (currentIndex < player.size() - 1) {
+                currentPlayer = player.get(currentIndex + 1);
+            } else {
+                currentPlayer = null;
+                Dealer dealer = game.getDealer();
+                dealer.playTurn(game);
+
+                revealDealerCard();
+            }
         }
     }
 }
