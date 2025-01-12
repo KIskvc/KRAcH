@@ -54,8 +54,8 @@ public class GameController {
         player.add(player2);
         player.add(player3);
         //initGame();
-        placeBetText.setText(player.getFirst().getName() + ", place your bet!");
-        placeBetBox.setVisible(true);
+//        placeBetText.setText(player.getFirst().getName() + ", place your bet!");
+//        placeBetBox.setVisible(true);
     }
 
     //Change currentPlayer to next Player.
