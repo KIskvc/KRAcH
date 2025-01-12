@@ -26,6 +26,7 @@ public class GameController {
     private ArrayList<Player> player = new ArrayList<>();
     private static final int STARTBALANCE = 1000;
     private Game game;
+    private Player currentPlayer;
 
     @FXML
     public void initialize() throws InterruptedException {
@@ -40,16 +41,20 @@ public class GameController {
         //initGame();
     }
 
-    public void playTurn() {
-        //Change currentPlayer to next Player.
+    //Change currentPlayer to next Player.
+    public void setNextPlayer() {
         try {
-            Player currentPlayer = player.get(0);
-            int indexOfCurrentPlayer = player.indexOf(currentPlayer);
-            int indexOfNewPlayer = indexOfCurrentPlayer + 1;
-            if(indexOfNewPlayer >= player.size()-1) {
-                indexOfNewPlayer = 0;
+            if(currentPlayer == null) {
+                currentPlayer = player.getFirst();
+
+            } else {
+                int indexOfCurrentPlayer = player.indexOf(currentPlayer);
+                int indexOfNewPlayer = indexOfCurrentPlayer + 1;
+                if(indexOfNewPlayer >= player.size()-1) {
+                    indexOfNewPlayer = 0;
+                }
+                currentPlayer = player.get(indexOfNewPlayer);
             }
-            Player curretPlayer = player.get(indexOfCurrentPlayer);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -62,9 +67,9 @@ public class GameController {
         Card drawnCard = currentPlayer.hit(game.getDeck());
 
         //Variante 2
-        Hand currentHand = player.get(0).getHand();
-        Deck currentDeck = game.getDeck();
-        currentHand.addCard(currentDeck.dealCard());
+//        Hand currentHand = player.get(0).getHand();
+//        Deck currentDeck = game.getDeck();
+//        currentHand.addCard(currentDeck.dealCard());
 
         //Add Card to current player hand.
         //Update Deck
@@ -75,8 +80,8 @@ public class GameController {
         newCard.setPickOnBounds(true);
         newCard.setPreserveRatio(true);
         newCard.setImage(newCardImage);
-        firstHand.getChildren().add(newCard);
-        //Change currentPlayer.
+        //Get hand from currentPlayer (e.g. firstHand) and add Card.
+        //firstHand.getChildren().add(newCard);
     }
 
     @FXML
