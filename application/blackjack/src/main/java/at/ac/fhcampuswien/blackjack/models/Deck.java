@@ -12,8 +12,8 @@ public class Deck {
         this.deck = new ArrayList<>();
         this.random = new Random();
 
-        String[] rank = {"A","Q","K","J","2","3","4","5","6","7","8","9","10"};
-        String[] suits = {"CLUBS","DIAMONDS","HEARTS","SPADES"};
+        String[] rank = {"ace","queen","king","jack","2","3","4","5","6","7","8","9","10"};
+        String[] suits = {"clubs","diamonds","hearts","spades"};
 
         for(int i=0; i<rank.length; i++){
             for(int j=0; j<suits.length; j++){

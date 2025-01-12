@@ -17,5 +17,4 @@ public class MainApp extends Application {
         SceneManager.getInstance().switchScene("main-view.fxml");
        // SceneManager.getInstance().switchScene("loser-view.fxml");
     }
-
 }
