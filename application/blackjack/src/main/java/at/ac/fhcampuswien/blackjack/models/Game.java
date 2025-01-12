@@ -8,13 +8,17 @@ public class Game {
     private Dealer Dealer;
     private Deck Deck;
 
-    public Game(int pot, ArrayList<Player> player, Dealer dealer) {
+    public Game(ArrayList<Player> player, Dealer dealer) {
         Player = player;
         Dealer = dealer;
     }
 
     public ArrayList<Player> getPlayer() {
         return Player;
+    }
+
+    public at.ac.fhcampuswien.blackjack.models.Dealer getDealer() {
+        return Dealer;
     }
 
     public Deck getDeck() {
@@ -29,12 +33,12 @@ public class Game {
         this.Deck = new Deck();
         this.Deck.shuffleDeck();
 
-        for(int i = 0; i < 2; i++) {
-            for(Player player : Player) {
-                player.hand.addCard(Deck.dealCard());
-            }
-            this.Dealer.hand.addCard(Deck.dealCard());
-        }
+//        for(int i = 0; i < 2; i++) {
+//            for(Player player : Player) {
+//                player.hand.addCard(Deck.dealCard());
+//            }
+//            this.Dealer.hand.addCard(Deck.dealCard());
+//        }
     }
 
     public void playRound() {
