@@ -36,6 +36,10 @@ public class GameController {
     private VBox placeBetBox;
     @FXML
     private Text placeBetText;
+    @FXML
+    private TextField statusTextField;
+    @FXML
+    private Button hit;
 
     private ArrayList<Player> player = new ArrayList<>();
     private static final int STARTBALANCE = 1000;
@@ -84,9 +88,9 @@ public class GameController {
         Card drawnCard = currentPlayer.hit(game.getDeck());
 
         //Variante 2
-//        Hand currentHand = player.get(0).getHand();
-//        Deck currentDeck = game.getDeck();
-//        currentHand.addCard(currentDeck.dealCard());
+//    Hand currentHand = player.get(0).getHand();
+//    Deck currentDeck = game.getDeck();
+//    currentHand.addCard(currentDeck.dealCard());
 
         //Add Card to current player hand.
         //Update Deck
@@ -98,9 +102,27 @@ public class GameController {
         newCard.setPreserveRatio(true);
         newCard.setImage(newCardImage);
         firstHand.getChildren().add(newCard);
-        //Get hand from currentPlayer (e.g. firstHand) and add Card.
-        //firstHand.getChildren().add(newCard);
+
+        // Check current hand value
+        int handValue = currentPlayer.getHand().getCurrentScore();
+
+        if (handValue < 21) {
+            statusTextField.setText("Current score: " + handValue);
+        } else if (handValue == 21) {
+            statusTextField.setText("Blackjack! Maximum score reached.");
+            hit.setDisable(true); // Disable the Hit button
+        } else {
+            statusTextField.setText("Busted! You lose.");
+            hit.setDisable(true); // Disable the Hit button
+        }
+
+        // Additional safety: Disable the button if conditions are met
+        if (handValue >= 21) {
+            hit.setDisable(true);
+        }
     }
+
+
 
     @FXML
     public void initGame() throws InterruptedException {

@@ -12,6 +12,7 @@
 
 <?import javafx.scene.layout.HBox?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TextField?>
 <VBox prefHeight="844.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.ac.fhcampuswien.blackjack.gui.GameController">
    <Pane maxWidth="1200.0" prefHeight="844.0">
       <children>
@@ -123,6 +124,9 @@
                <Insets />
             </opaqueInsets>
          </Button>
+         <!-- New TextField for displaying status -->
+         <TextField fx:id="statusTextField" layoutX="50.0" layoutY="720.0" prefWidth="1100.0" editable="false" style="-fx-background-color: #f0f0f0; -fx-border-color: #8B0000; -fx-border-radius: 5px;" />
+
       </children>
    </Pane>
 </VBox>
