@@ -57,29 +57,27 @@ public class GameController {
         player.add(player1);
         player.add(player2);
         player.add(player3);
-        hit.setDisable(true);
 
-        // Ersten Spieler setzen
-        playerCurrent = null; // Spieler wird erst durch Play-Button gesetzt
+        hit.setDisable(true);
+        playerCurrent = null;
         statusTextField.setText("Drücke 'Play', um das Spiel zu starten!");
     }
 
     //Change currentPlayer to next Player.
     public void setNextPlayer() {
         try {
-            if(playerCurrent == null) {
-                playerCurrent = player.getFirst();
-
+            if (playerCurrent == null) {
+                playerCurrent = player.get(0);
             } else {
                 int indexOfCurrentPlayer = player.indexOf(playerCurrent);
-                int indexOfNewPlayer = indexOfCurrentPlayer + 1;
-                if(indexOfNewPlayer >= player.size()-1) {
-                    indexOfNewPlayer = 0;
+                if (indexOfCurrentPlayer < player.size() - 1) {
+                    playerCurrent = player.get(indexOfCurrentPlayer + 1);
+                } else {
+                    playerCurrent = null;
                 }
-                playerCurrent = player.get(indexOfNewPlayer);
             }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Fehler beim Wechseln des Spielers: " + e.getMessage());
         }
     }
 
@@ -194,7 +192,6 @@ public class GameController {
         String betText = betTextField.getText();
         int bet;
 
-
         if (betText.isEmpty()) {
             errLabel.setText("Please place a bet");
             return;
@@ -216,10 +213,8 @@ public class GameController {
         }
         player.get(currentPlayer).setCurrentBet(bet);
         player.get(currentPlayer).placeBet(bet);
-
         betTextField.clear();
         errLabel.setText("");
-
         currentPlayer++;
 
         if (currentPlayer < player.size()) {
@@ -243,21 +238,17 @@ public class GameController {
     public void handleStandButton(ActionEvent event) {
         if (playerCurrent != null) {
             playerCurrent.stand();
+            setNextPlayer();
 
-            int currentIndex = player.indexOf(playerCurrent);
-
-            if (currentIndex < player.size() - 1) {
-                playerCurrent = player.get(currentIndex + 1);
+            if (playerCurrent != null) {
                 statusTextField.setText(playerCurrent.getName() + " ist an der Reihe.");
                 hit.setDisable(false);
             } else {
-                playerCurrent = null;
-                Dealer dealer = game.getDealer();
-                dealer.playTurn(game);
-
-                revealDealerCard();
                 statusTextField.setText("Alle Spieler sind fertig. Dealer ist dran!");
                 hit.setDisable(true);
+                Dealer dealer = game.getDealer();
+                dealer.playTurn(game);
+                revealDealerCard();
             }
         } else {
             statusTextField.setText("Kein Spieler aktiv. Bitte starte das Spiel.");
