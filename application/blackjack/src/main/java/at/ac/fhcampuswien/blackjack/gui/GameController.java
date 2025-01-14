@@ -85,12 +85,9 @@ public class GameController {
 
     @FXML
     public void hit() {
-        // Prüfen, ob ein aktueller Spieler aktiv ist
         if (playerCurrent != null) {
-            // Karte ziehen
             Card drawnCard = playerCurrent.hit(game.getDeck());
 
-            // Karte in der UI anzeigen
             String path = drawnCard.getImage();
             Image newCardImage = new Image(Objects.requireNonNull(getClass().getResource(path)).toExternalForm());
             ImageView newCard = new ImageView();
@@ -99,7 +96,6 @@ public class GameController {
             newCard.setPreserveRatio(true);
             newCard.setImage(newCardImage);
 
-            // Spielerhand-Container basierend auf dem Spieler aktualisieren
             HBox currentHand;
             int currentIndex = player.indexOf(playerCurrent);
             if (currentIndex == 0) {
@@ -111,7 +107,6 @@ public class GameController {
             }
             currentHand.getChildren().add(newCard);
 
-            // Punktestand des aktuellen Spielers überprüfen
             int handValue = playerCurrent.getHand().getCurrentScore();
 
             if (handValue < 21) {
@@ -122,11 +117,10 @@ public class GameController {
                 statusTextField.setText(playerCurrent.getName() + " ist über 21! Bust!");
             }
 
-            // Deaktivieren des Hit-Buttons nur für den aktuellen Spieler
             if (handValue >= 21) {
-                hit.setDisable(true); // Hit-Button deaktivieren
+                hit.setDisable(true);
             } else {
-                hit.setDisable(false); // Sicherstellen, dass der Button aktiviert bleibt
+                hit.setDisable(false);
             }
         } else {
             statusTextField.setText("Kein Spieler aktiv. Bitte starte das Spiel.");
@@ -255,7 +249,7 @@ public class GameController {
             if (currentIndex < player.size() - 1) {
                 playerCurrent = player.get(currentIndex + 1);
                 statusTextField.setText(playerCurrent.getName() + " ist an der Reihe.");
-                hit.setDisable(false); // Button wieder aktivieren für den nächsten Spieler
+                hit.setDisable(false);
             } else {
                 playerCurrent = null;
                 Dealer dealer = game.getDealer();
@@ -263,12 +257,10 @@ public class GameController {
 
                 revealDealerCard();
                 statusTextField.setText("Alle Spieler sind fertig. Dealer ist dran!");
-                hit.setDisable(true); // Button deaktivieren, da Dealer keine Hit-Option hat
+                hit.setDisable(true);
             }
         } else {
             statusTextField.setText("Kein Spieler aktiv. Bitte starte das Spiel.");
         }
     }
-
-
 }
