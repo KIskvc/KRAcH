@@ -104,9 +104,7 @@ public class GameController {
                 currentHand = thirdHand; // Harun
             }
             currentHand.getChildren().add(newCard);
-
             int handValue = playerCurrent.getHand().getCurrentScore();
-
             if (handValue < 21) {
                 statusTextField.setText(playerCurrent.getName() + "'s aktueller Punktestand: " + handValue);
             } else if (handValue == 21) {
@@ -114,7 +112,6 @@ public class GameController {
             } else {
                 statusTextField.setText(playerCurrent.getName() + " ist über 21! Bust!");
             }
-
             if (handValue >= 21) {
                 hit.setDisable(true);
             } else {
@@ -124,10 +121,6 @@ public class GameController {
             statusTextField.setText("Kein Spieler aktiv. Bitte starte das Spiel.");
         }
     }
-
-
-
-
 
     @FXML
     public void initGame() throws InterruptedException {
