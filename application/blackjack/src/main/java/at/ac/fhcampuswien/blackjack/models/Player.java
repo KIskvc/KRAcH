@@ -32,7 +32,6 @@ public class Player extends BasePlayer {
     public void placeBet(int amount) {
         if (amount <= balance) {
             balance -= amount;
-            currentBet += amount;
             System.out.println(name + " placed a bet of " + amount + ". Current balance: " + balance);
         } else {
             System.out.println(name + " does not have enough balance to place the bet.");
