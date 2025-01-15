@@ -60,14 +60,15 @@ public class GameController {
         player.add(player3);
 
         hit.setDisable(true);
-        playerCurrent = null;
+        //playerCurrent = null;
         statusTextField.setText("Drücke 'Play', um das Spiel zu starten!");
         //initGame();
-        //playerCurrent = player.getFirst();
+        playerCurrent = player.getFirst();
         placeBetText.setText(playerCurrent.getName() + ", place your bet!");
-        placeBetBox.setVisible(true);
+        placeBetBox.setVisible(false);
     }
 
+    /* //---Kenans---
     //Change currentPlayer to next Player.
     public void setNextPlayer() {
         try {
@@ -85,9 +86,9 @@ public class GameController {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
+    }*/
 
-    /* ---Haruns----
+    //---Haruns----
     //Change currentPlayer to next Player.
     public void setNextPlayer() {
         try {
@@ -104,7 +105,7 @@ public class GameController {
         } catch (Exception e) {
             throw new RuntimeException("Fehler beim Wechseln des Spielers: " + e.getMessage());
         }
-    }*/
+    }
 
     @FXML
     public void hit() {
@@ -154,6 +155,9 @@ public class GameController {
         game.initializeGame();
         playerCurrent = player.get(0);
         statusTextField.setText(playerCurrent.getName() + " ist an der Reihe.");
+
+        placeBetBox.setVisible(true);
+
         Deck currentDeck = game.getDeck();
         for(int i = 0; i < 2; i++) {
             int handcounter = 0;
