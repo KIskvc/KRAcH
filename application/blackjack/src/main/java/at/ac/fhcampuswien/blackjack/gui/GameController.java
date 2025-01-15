@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 
 import java.util.ArrayList;
 import java.util.Objects;
+
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -22,6 +23,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
+
 import java.awt.*;
 
 public class GameController {
@@ -55,27 +57,122 @@ public class GameController {
     public void initialize() throws InterruptedException {
         Dealer dealer = new Dealer("Mr.MakeYouBroke");
         game = new Game(player, dealer);
-        Player player1 = new Player("Rana", STARTBALANCE );
-        Player player2 = new Player("Kenan", STARTBALANCE );
-        Player player3 = new Player("Harun", STARTBALANCE );
-        player.add(player1);
-        player.add(player2);
-        player.add(player3);
+        //Player player1 = new Player("Rana", STARTBALANCE);
+        //Player player2 = new Player("Kenan", STARTBALANCE);
+        //Player player3 = new Player("Harun", STARTBALANCE);
+       // player.add(player1);
+        //player.add(player2);
+        //player.add(player3);
         //initGame();
 //        placeBetText.setText(player.getFirst().getName() + ", place your bet!");
 //        placeBetBox.setVisible(true);
     }
 
+    //Player-Screen-view Code (not done yet)
+    @FXML
+    private TextField player1;
+    @FXML
+    private TextField player2;
+    @FXML
+    private TextField player3;
+    @FXML
+    private Button submitbtn;
+    @FXML
+    private Label NameErrorLbl;
+    //@FXML
+    //private VBox playerScreen;
+
+    public void handleSubmitBtn(ActionEvent actionEvent) {
+
+        // Wenn keine Namen at all eingegeben wurden nach Submit
+        if (player1.getText().isEmpty() && player2.getText().isEmpty() && player3.getText().isEmpty()) {
+            NameErrorLbl.setText("");
+            NameErrorLbl.setText("Error! At least one player (Player 1) is required.");
+            return;
+        }
+
+        // Wenn Player 1 empty ist nach Submit
+        // (notwendig um fortzusetzen mit weiterer Namen Eingabe)
+        if (player1.getText().isEmpty()) {
+            if (player2.getText().matches("[a-zA-Z]+")&& player3.getText().matches("[a-zA-Z]+")) {
+                NameErrorLbl.setText("");
+                NameErrorLbl.setText("Error! Please enter name(s). Start with Player 1.");
+                return;
+            }
+        }
+
+        //Bedingung, wenn nur 1 Spieler spielt und die Namenfelder "korrekt benutzt" wurden
+        //(Nur Buchstaben zulässig)
+        if (player1.getText().matches("[a-zA-Z]+")) { // Prüft, ob nur Buchstaben im Textfeld stehen
+            if (player2.getText().isEmpty() && player3.getText().isEmpty()) { // Prüft, ob die anderen Felder leer sind
+                SceneManager.getInstance().switchScene("game-view.fxml");
+            }
+        }
+        
+        if (player1.getText().matches("[a-zA-Z]+") && player2.getText().matches("[a-zA-Z]+")) { // Prüft, ob nur Buchstaben im Textfeld stehen
+            if (player3.getText().isEmpty()) { // Prüft, ob Player 3 TextField leer ist
+                SceneManager.getInstance().switchScene("game-view.fxml");
+            }
+        }
+
+        if (player1.getText().matches("[a-zA-Z]+") && player2.getText().matches("[a-zA-Z]+")
+                && player3.getText().matches("[a-zA-Z]+")) { // Prüft, ob nur Buchstaben im Textfeld stehen
+            SceneManager.getInstance().switchScene("game-view.fxml");
+        }
+
+        if(player2.getText().matches("[a-zA-Z]+")&&player3.getText().matches("[a-zA-Z]+")) {
+            if(player1.getText().isEmpty()){
+                NameErrorLbl.setText("");
+                NameErrorLbl.setText("Error! Please enter name(s). Start with Player 1.");
+            }
+        }
+
+        if(player1.getText().matches("[a-zA-Z]+")&&player3.getText().matches("[a-zA-Z]+")) {
+            if(player2.getText().isEmpty()){
+                NameErrorLbl.setText("");
+                NameErrorLbl.setText("Error! Please enter name at Player 2.");
+            }
+        }
+
+        //Wenn nur Player 3
+        if(player3.getText().matches("[a-zA-Z]+")) {
+            if(player1.getText().isEmpty()&&player2.getText().isEmpty()){
+                NameErrorLbl.setText("");
+                NameErrorLbl.setText("Error! Please enter name(s). Start with Player 1.");
+            }
+        }
+
+        // Wenn nur Zahlen eingegeben werden statt Buchstaben
+        if (player1.getText().matches("\\d+")||player2.getText().matches("\\d+")||player3.getText().matches("\\d+")) {
+            NameErrorLbl.setText("");
+            NameErrorLbl.setText("Error! Numbers are not allowed. Please enter a name.");
+        }
+
+        if (player1.getText().matches("[a-zA-Z]+")) {
+            player.add(new Player(player1.getText(),STARTBALANCE)); // Player 1 hinzufügen
+            if (player2.getText().matches("[a-zA-Z]+")) {
+                player.add(new Player(player2.getText(),STARTBALANCE)); // Player 2 hinzufügen
+                if (player3.getText().matches("[a-zA-Z]+")) {
+                    player.add(new Player(player3.getText(),STARTBALANCE)); // Player 3 hinzufügen
+                }
+            }
+            // Szene wechseln, nachdem Spieler hinzugefügt wurden
+            SceneManager.getInstance().switchScene("game-view.fxml");
+        }
+
+
+    }
+
     //Change currentPlayer to next Player.
     public void setNextPlayer() {
         try {
-            if(playerCurrent == null) {
+            if (playerCurrent == null) {
                 playerCurrent = player.getFirst();
 
             } else {
                 int indexOfCurrentPlayer = player.indexOf(playerCurrent);
                 int indexOfNewPlayer = indexOfCurrentPlayer + 1;
-                if(indexOfNewPlayer >= player.size()-1) {
+                if (indexOfNewPlayer >= player.size() - 1) {
                     indexOfNewPlayer = 0;
                 }
                 playerCurrent = player.get(indexOfNewPlayer);
@@ -115,9 +212,9 @@ public class GameController {
         playButton.setVisible(false);
         game.initializeGame();
         Deck currentDeck = game.getDeck();
-        for(int i = 0; i < 2; i++) {
+        for (int i = 0; i < 2; i++) {
             int handcounter = 0;
-            for(Player player : game.getPlayer()) {
+            for (Player player : game.getPlayer()) {
                 dealCardToPlayer(player, currentDeck, handcounter);
                 game.setDeck(currentDeck);
                 handcounter++;
@@ -132,11 +229,11 @@ public class GameController {
         currentPlayerHand.addCard(currentCard);
         HBox currentHbox;
         try {
-            if(handIndex == 0) {
+            if (handIndex == 0) {
                 currentHbox = firstHand;
-            } else if(handIndex == 1) {
+            } else if (handIndex == 1) {
                 currentHbox = secondHand;
-            } else if(handIndex == 2) {
+            } else if (handIndex == 2) {
                 currentHbox = thirdHand;
             } else {
                 currentHbox = dealerHand;
@@ -205,7 +302,7 @@ public class GameController {
         }
     }
 
-    public void handleSubmitBet (ActionEvent actionEvent){
+    public void handleSubmitBet(ActionEvent actionEvent) {
         handleBet(actionEvent);
     }
     // Code block for placing bet
@@ -232,4 +329,6 @@ public class GameController {
             }
         }
     }
+
+
 }
