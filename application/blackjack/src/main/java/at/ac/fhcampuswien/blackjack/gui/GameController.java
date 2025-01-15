@@ -161,6 +161,7 @@ public class GameController {
     // Code block for placing bet
     @FXML
     public void handleBet(ActionEvent event) {
+        //placeBetBox.setVisible(true);
         String betText = betTextField.getText();
         int bet;
 
@@ -190,12 +191,9 @@ public class GameController {
         betTextField.clear();
         errLabel.setText("");
 
-        //setNextPlayer();
-
         int currentIndex = player.indexOf(playerCurrent);
-
-        if (currentIndex < player.size()-1) {
-            playerCurrent = player.get(currentIndex+1);
+        if(currentIndex < player.size()-1){
+            setNextPlayer();
             placeBetText.setText(playerCurrent.getName() + ", place your bet!");
         } else {
             placeBetBox.setVisible(false);
