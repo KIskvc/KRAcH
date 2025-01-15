@@ -46,6 +46,20 @@ public class GameController {
     private VBox placeBetBox;
     @FXML
     private Text placeBetText;
+    @FXML
+    private TextField statusTextField;
+    @FXML
+    private Button hit;
+    @FXML
+    private TextField player1;
+    @FXML
+    private TextField player2;
+    @FXML
+    private TextField player3;
+    @FXML
+    private Button submitbtn;
+    @FXML
+    private Label NameErrorLbl;
 
     private ArrayList<Player> player = new ArrayList<>();
     private static final int STARTBALANCE = 1000;
@@ -66,21 +80,11 @@ public class GameController {
         //initGame();
 //        placeBetText.setText(player.getFirst().getName() + ", place your bet!");
 //        placeBetBox.setVisible(true);
-    }
 
-    //Player-Screen-view Code (not done yet)
-    @FXML
-    private TextField player1;
-    @FXML
-    private TextField player2;
-    @FXML
-    private TextField player3;
-    @FXML
-    private Button submitbtn;
-    @FXML
-    private Label NameErrorLbl;
-    //@FXML
-    //private VBox playerScreen;
+        hit.setDisable(true);
+        playerCurrent = null;
+        statusTextField.setText("Drücke 'Play', um das Spiel zu starten!");
+    }
 
     public void handleSubmitBtn(ActionEvent actionEvent) {
 
@@ -108,7 +112,7 @@ public class GameController {
                 SceneManager.getInstance().switchScene("game-view.fxml");
             }
         }
-        
+
         if (player1.getText().matches("[a-zA-Z]+") && player2.getText().matches("[a-zA-Z]+")) { // Prüft, ob nur Buchstaben im Textfeld stehen
             if (player3.getText().isEmpty()) { // Prüft, ob Player 3 TextField leer ist
                 SceneManager.getInstance().switchScene("game-view.fxml");
@@ -163,58 +167,98 @@ public class GameController {
 
     }
 
+    //Haruns Code
     //Change currentPlayer to next Player.
     public void setNextPlayer() {
         try {
             if (playerCurrent == null) {
-                playerCurrent = player.getFirst();
-
+                playerCurrent = player.get(0);
             } else {
                 int indexOfCurrentPlayer = player.indexOf(playerCurrent);
-                int indexOfNewPlayer = indexOfCurrentPlayer + 1;
-                if (indexOfNewPlayer >= player.size() - 1) {
-                    indexOfNewPlayer = 0;
+                if (indexOfCurrentPlayer < player.size() - 1) {
+                    playerCurrent = player.get(indexOfCurrentPlayer + 1);
+                } else {
+                    playerCurrent = null;
                 }
-                playerCurrent = player.get(indexOfNewPlayer);
             }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Fehler beim Wechseln des Spielers: " + e.getMessage());
         }
     }
 
+    /* Kenans Code
+    //Change currentPlayer to next Player.
+public void setNextPlayer() {
+    try {
+        if(playerCurrent == null) {
+            playerCurrent = player.getFirst();
+
+        } else {
+            int indexOfCurrentPlayer = player.indexOf(playerCurrent);
+            int indexOfNewPlayer = indexOfCurrentPlayer + 1;
+            if(indexOfNewPlayer >= player.size()-1) {
+                indexOfNewPlayer = 0;
+            }
+            playerCurrent = player.get(indexOfNewPlayer);
+        }
+    } catch (Exception e) {
+        throw new RuntimeException(e);
+    }
+}
+    */
+
     @FXML
     public void hit() {
-        //Variante 1
-        Player currentPlayer = player.get(0);
-        Card drawnCard = currentPlayer.hit(game.getDeck());
+        if (playerCurrent != null) {
+            Card drawnCard = playerCurrent.hit(game.getDeck());
 
-        //Variante 2
-//        Hand currentHand = player.get(0).getHand();
-//        Deck currentDeck = game.getDeck();
-//        currentHand.addCard(currentDeck.dealCard());
+            String path = drawnCard.getImage();
+            Image newCardImage = new Image(Objects.requireNonNull(getClass().getResource(path)).toExternalForm());
+            ImageView newCard = new ImageView();
+            newCard.setFitWidth(50);
+            newCard.setPickOnBounds(true);
+            newCard.setPreserveRatio(true);
+            newCard.setImage(newCardImage);
 
-        //Add Card to current player hand.
-        //Update Deck
-        String path = drawnCard.getImage();
-        Image newCardImage = new Image(Objects.requireNonNull(getClass().getResource(path)).toExternalForm());
-        ImageView newCard = new ImageView();
-        newCard.setFitWidth(50);
-        newCard.setPickOnBounds(true);
-        newCard.setPreserveRatio(true);
-        newCard.setImage(newCardImage);
-        firstHand.getChildren().add(newCard);
-        //Get hand from currentPlayer (e.g. firstHand) and add Card.
-        //firstHand.getChildren().add(newCard);
+            HBox currentHand;
+            int currentIndex = player.indexOf(playerCurrent);
+            if (currentIndex == 0) {
+                currentHand = firstHand; // Rana
+            } else if (currentIndex == 1) {
+                currentHand = secondHand; // Kenan
+            } else {
+                currentHand = thirdHand; // Harun
+            }
+            currentHand.getChildren().add(newCard);
+            int handValue = playerCurrent.getHand().getCurrentScore();
+            if (handValue < 21) {
+                statusTextField.setText(playerCurrent.getName() + "'s aktueller Punktestand: " + handValue);
+            } else if (handValue == 21) {
+                statusTextField.setText(playerCurrent.getName() + " hat Blackjack erreicht!");
+            } else {
+                statusTextField.setText(playerCurrent.getName() + " ist über 21! Bust!");
+            }
+            if (handValue >= 21) {
+                hit.setDisable(true);
+            } else {
+                hit.setDisable(false);
+            }
+        } else {
+            statusTextField.setText("Kein Spieler aktiv. Bitte starte das Spiel.");
+        }
     }
 
     @FXML
     public void initGame() throws InterruptedException {
         playButton.setVisible(false);
+        hit.setDisable(false);
         game.initializeGame();
+        playerCurrent = player.get(0);
+        statusTextField.setText(playerCurrent.getName() + " ist an der Reihe.");
         Deck currentDeck = game.getDeck();
-        for (int i = 0; i < 2; i++) {
+        for(int i = 0; i < 2; i++) {
             int handcounter = 0;
-            for (Player player : game.getPlayer()) {
+            for(Player player : game.getPlayer()) {
                 dealCardToPlayer(player, currentDeck, handcounter);
                 game.setDeck(currentDeck);
                 handcounter++;
@@ -229,11 +273,11 @@ public class GameController {
         currentPlayerHand.addCard(currentCard);
         HBox currentHbox;
         try {
-            if (handIndex == 0) {
+            if(handIndex == 0) {
                 currentHbox = firstHand;
-            } else if (handIndex == 1) {
+            } else if(handIndex == 1) {
                 currentHbox = secondHand;
-            } else if (handIndex == 2) {
+            } else if(handIndex == 2) {
                 currentHbox = thirdHand;
             } else {
                 currentHbox = dealerHand;
@@ -289,10 +333,8 @@ public class GameController {
         }
         player.get(currentPlayer).setCurrentBet(bet);
         player.get(currentPlayer).placeBet(bet);
-
         betTextField.clear();
         errLabel.setText("");
-
         currentPlayer++;
 
         if (currentPlayer < player.size()) {
@@ -302,7 +344,7 @@ public class GameController {
         }
     }
 
-    public void handleSubmitBet(ActionEvent actionEvent) {
+    public void handleSubmitBet (ActionEvent actionEvent){
         handleBet(actionEvent);
     }
     // Code block for placing bet
@@ -316,19 +358,20 @@ public class GameController {
     public void handleStandButton(ActionEvent event) {
         if (playerCurrent != null) {
             playerCurrent.stand();
+            setNextPlayer();
 
-            int currentIndex = player.indexOf(playerCurrent);
-            if (currentIndex < player.size() - 1) {
-                playerCurrent = player.get(currentIndex + 1);
+            if (playerCurrent != null) {
+                statusTextField.setText(playerCurrent.getName() + " ist an der Reihe.");
+                hit.setDisable(false);
             } else {
-                playerCurrent = null;
+                statusTextField.setText("Alle Spieler sind fertig. Dealer ist dran!");
+                hit.setDisable(true);
                 Dealer dealer = game.getDealer();
                 dealer.playTurn(game);
-
                 revealDealerCard();
             }
+        } else {
+            statusTextField.setText("Kein Spieler aktiv. Bitte starte das Spiel.");
         }
     }
-
-
 }
