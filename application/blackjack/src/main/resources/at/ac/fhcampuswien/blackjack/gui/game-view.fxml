@@ -174,9 +174,11 @@
                <Font name="Arial Bold" size="16.0" />
             </font>
          </Label>
-         <!-- New TextField for displaying status -->
-         <TextField fx:id="statusTextField" layoutX="50.0" layoutY="720.0" prefWidth="1100.0" editable="false" style="-fx-background-color: #f0f0f0; -fx-border-color: #8B0000; -fx-border-radius: 5px;" />
-
+         <TextField fx:id="statusTextField" layoutX="50.0" layoutY="730.0" prefHeight="40.0" prefWidth="1120.0" style="-fx-background-color: #2B0000; -fx-text-fill: white;" editable="false">
+            <font>
+               <Font name="Arial" size="18.0" />
+            </font>
+         </TextField>
       </children>
    </Pane>
 </VBox>
