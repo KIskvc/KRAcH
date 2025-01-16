@@ -157,7 +157,7 @@
                            <Font name="Arial Bold" size="20.0" />
                         </font>
                      </Text>
-                     <Text fx:id="placeBetText" fill="WHITE" layoutX="16.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Place your bet" wrappingWidth="295.4700012207031">
+                     <Text fx:id="placeBetText" fill="WHITE" layoutX="16.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="295.4700012207031">
                         <font>
                            <Font name="Arial Bold" size="20.0" />
                         </font>

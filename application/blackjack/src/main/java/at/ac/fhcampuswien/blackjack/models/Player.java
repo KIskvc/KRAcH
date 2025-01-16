@@ -70,7 +70,7 @@ public class Player extends BasePlayer {
             balance -= doubleAmount;
             currentBet += doubleAmount;
             System.out.println(name + " doubles the bet to " + doubleAmount);
-            hit(deck);
+            //hit(deck);
         } else {
             System.out.println(name + " does not have enough balance to double.");
         }

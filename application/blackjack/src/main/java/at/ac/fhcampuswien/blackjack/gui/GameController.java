@@ -11,7 +11,6 @@ import javafx.scene.control.TextField;
 
 import java.util.ArrayList;
 import java.util.Objects;
-import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -42,6 +41,12 @@ public class GameController {
     private TextField statusTextField;
     @FXML
     private Button hit;
+    @FXML
+    private Button stand;
+    @FXML
+    private Button split;
+    @FXML
+    private Button doppelt;
 
     private ArrayList<Player> player = new ArrayList<>();
     private static final int STARTBALANCE = 1000;
@@ -60,11 +65,16 @@ public class GameController {
         player.add(player3);
 
         hit.setDisable(true);
-        //playerCurrent = null;
-        statusTextField.setText("Drücke 'Play', um das Spiel zu starten!");
+        stand.setDisable(true);
+        split.setDisable(true);
+        doppelt.setDisable(true);
+
+        playerCurrent = null;
+        statusTextField.setText("Click Play to start the Game!");
+        //statusTextField.setText("Drücke 'Play', um das Spiel zu starten!");
         //initGame();
-        playerCurrent = player.getFirst();
-        placeBetText.setText(playerCurrent.getName() + ", place your bet!");
+        //playerCurrent = player.getFirst();
+        //placeBetText.setText(playerCurrent.getName() + ", place your bet!");
         placeBetBox.setVisible(false);
     }
 
@@ -132,11 +142,14 @@ public class GameController {
             currentHand.getChildren().add(newCard);
             int handValue = playerCurrent.getHand().getCurrentScore();
             if (handValue < 21) {
-                statusTextField.setText(playerCurrent.getName() + "'s aktueller Punktestand: " + handValue);
+                //statusTextField.setText(playerCurrent.getName() + "'s aktueller Punktestand: " + handValue);
+                statusTextField.setText(playerCurrent.getName() + "'s current Score: " + handValue);
             } else if (handValue == 21) {
-                statusTextField.setText(playerCurrent.getName() + " hat Blackjack erreicht!");
+                //statusTextField.setText(playerCurrent.getName() + " hat Blackjack erreicht!");
+                statusTextField.setText(playerCurrent.getName() + "'s got 21!");
             } else {
-                statusTextField.setText(playerCurrent.getName() + " ist über 21! Bust!");
+                //statusTextField.setText(playerCurrent.getName() + " ist über 21! Bust!");
+                statusTextField.setText(playerCurrent.getName() + " is bust!");
             }
             if (handValue >= 21) {
                 hit.setDisable(true);
@@ -144,19 +157,22 @@ public class GameController {
                 hit.setDisable(false);
             }
         } else {
-            statusTextField.setText("Kein Spieler aktiv. Bitte starte das Spiel.");
+            //statusTextField.setText("Kein Spieler aktiv. Bitte starte das Spiel.");
+            statusTextField.setText("No active player. Please start the game.");
         }
     }
 
     @FXML
     public void initGame() throws InterruptedException {
         playButton.setVisible(false);
-        hit.setDisable(false);
+
         game.initializeGame();
         playerCurrent = player.get(0);
-        statusTextField.setText(playerCurrent.getName() + " ist an der Reihe.");
+        //statusTextField.setText(playerCurrent.getName() + " ist an der Reihe.");
+        statusTextField.setText(playerCurrent.getName() + "'s turn!");
 
         placeBetBox.setVisible(true);
+        placeBetText.setText(playerCurrent.getName() + ", place your bet!");
 
         Deck currentDeck = game.getDeck();
         for(int i = 0; i < 2; i++) {
@@ -210,11 +226,11 @@ public class GameController {
 
     // Code block for placing bet
     @FXML
-    public void handleBet(ActionEvent event) {
+    public void handleBet() {
         String betText = betTextField.getText();
         int bet;
 
-        if (betText.isEmpty()) {
+        if(betText.isEmpty()) {
             errLabel.setText("Please place a bet");
             return;
         }
@@ -226,7 +242,7 @@ public class GameController {
             return;
         }
 
-        if (bet <= 0) {
+        if(bet <= 0) {
             errLabel.setText("Invalid bet! Please enter a positive number!");
             return;
         } else if (bet > playerCurrent.getBalance()) {
@@ -241,45 +257,49 @@ public class GameController {
         errLabel.setText("");
 
         int currentIndex = player.indexOf(playerCurrent);
-        if(currentIndex < player.size()-1){
+        if(currentIndex < player.size() - 1) {
             setNextPlayer();
             placeBetText.setText(playerCurrent.getName() + ", place your bet!");
         } else {
             placeBetBox.setVisible(false);
+            playerCurrent = player.getFirst();
+
+            hit.setDisable(false);
+            stand.setDisable(false);
+            split.setDisable(false);
+            doppelt.setDisable(false);
         }
     }
 
-    public void handleSubmitBet (ActionEvent actionEvent){
-        handleBet(actionEvent);
+    public void handleSubmitBet (){
+        handleBet();
     }
     // Code block for placing bet
 
     @FXML
     public void doubleDown() {
-        // noch nicht fertig
-        try {
-            if (playerCurrent.getCurrentBet() == 0) {
-                throw new IllegalStateException("Player has not placed a bet!");
-            }
-            int doubledBet = playerCurrent.getCurrentBet() * 2;
+        if (playerCurrent != null) {
+            try {
+                if (playerCurrent.getCurrentBet() == 0) {
+                    throw new IllegalStateException(playerCurrent.getName() + " has not placed a bet yet!");
+                }
 
-            if (doubledBet > playerCurrent.getBalance()) {
-                errLabelDouble.setText(playerCurrent.getName() + " Not enough balance!");
-                return;
-            } else {
+                int doubledBet = playerCurrent.getCurrentBet() * 2;
+                if (doubledBet > playerCurrent.getBalance()) {
+                    errLabelDouble.setText(playerCurrent.getName() + " doesn't have enough balance to double!");
+                    return;
+                }
+
                 playerCurrent.doubleBet(game.getDeck(), game);
-                //playerCurrent.hit(game.getDeck());
+                hit();
 
-                Deck currentDeck = game.getDeck();
-                int handIndex = player.indexOf(playerCurrent);
-                dealCardToPlayer(playerCurrent, currentDeck, handIndex);
+                errLabelDouble.setText(playerCurrent.getName() + "'s bet has doubled! Current bet: " + playerCurrent.getCurrentBet());
 
-                errLabelDouble.setText(playerCurrent.getName() + ", Bet has been doubled! " + playerCurrent.getCurrentBet());
+                setNextPlayer();
+
+            } catch (IllegalStateException e) {
+                errLabelDouble.setText("Error: " + e.getMessage());
             }
-            setNextPlayer();
-
-        } catch (IllegalStateException e) {
-        errLabelDouble.setText("Error: " + e.getMessage());
         }
     }
 
