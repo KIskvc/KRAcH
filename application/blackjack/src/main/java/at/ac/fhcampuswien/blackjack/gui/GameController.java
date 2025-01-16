@@ -90,6 +90,8 @@ public class GameController {
 
     //---Haruns----
     //Change currentPlayer to next Player.
+
+
     public void setNextPlayer() {
         try {
             if (playerCurrent == null) {
@@ -110,8 +112,10 @@ public class GameController {
     @FXML
     public void hit() {
         if (playerCurrent != null) {
+            // Spieler zieht eine Karte
             Card drawnCard = playerCurrent.hit(game.getDeck());
 
+            // Karte in der UI anzeigen
             String path = drawnCard.getImage();
             Image newCardImage = new Image(Objects.requireNonNull(getClass().getResource(path)).toExternalForm());
             ImageView newCard = new ImageView();
@@ -120,33 +124,51 @@ public class GameController {
             newCard.setPreserveRatio(true);
             newCard.setImage(newCardImage);
 
+            // Hand des aktuellen Spielers aktualisieren
             HBox currentHand;
             int currentIndex = player.indexOf(playerCurrent);
             if (currentIndex == 0) {
-                currentHand = firstHand; // Rana
+                currentHand = firstHand;
             } else if (currentIndex == 1) {
-                currentHand = secondHand; // Kenan
+                currentHand = secondHand;
             } else {
-                currentHand = thirdHand; // Harun
+                currentHand = thirdHand;
             }
             currentHand.getChildren().add(newCard);
+
+            // Punktestand überprüfen
             int handValue = playerCurrent.getHand().getCurrentScore();
             if (handValue < 21) {
                 statusTextField.setText(playerCurrent.getName() + "'s aktueller Punktestand: " + handValue);
             } else if (handValue == 21) {
                 statusTextField.setText(playerCurrent.getName() + " hat Blackjack erreicht!");
+                setNextPlayer(); // Automatischer Wechsel zum nächsten Spieler
             } else {
                 statusTextField.setText(playerCurrent.getName() + " ist über 21! Bust!");
+                setNextPlayer(); // Automatischer Wechsel zum nächsten Spieler
             }
+
+            // Button deaktivieren, falls der Spieler Bust oder Blackjack erreicht hat
             if (handValue >= 21) {
                 hit.setDisable(true);
-            } else {
-                hit.setDisable(false);
             }
         } else {
             statusTextField.setText("Kein Spieler aktiv. Bitte starte das Spiel.");
         }
+
+        // Nächsten Spieler aktivieren
+        if (playerCurrent != null) {
+            statusTextField.setText(playerCurrent.getName() + " ist an der Reihe.");
+            hit.setDisable(false);
+        } else {
+            statusTextField.setText("Alle Spieler sind fertig. Dealer ist dran!");
+            hit.setDisable(true);
+            Dealer dealer = game.getDealer();
+            dealer.playTurn(game);
+            revealDealerCard();
+        }
     }
+
 
     @FXML
     public void initGame() throws InterruptedException {
