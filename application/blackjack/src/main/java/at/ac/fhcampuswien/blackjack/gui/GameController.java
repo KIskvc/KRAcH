@@ -59,23 +59,23 @@ public class GameController {
     }
 
     //Change currentPlayer to next Player.
-    public void setNextPlayer() {
-        try {
-            if(playerCurrent == null) {
-                playerCurrent = player.getFirst();
-
-            } else {
-                int indexOfCurrentPlayer = player.indexOf(playerCurrent);
-                int indexOfNewPlayer = indexOfCurrentPlayer + 1;
-                if(indexOfNewPlayer >= player.size()-1) {
-                    indexOfNewPlayer = 0;
-                }
-                playerCurrent = player.get(indexOfNewPlayer);
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    public void setNextPlayer() {
+//        try {
+//            if(playerCurrent == null) {
+//                playerCurrent = player.getFirst();
+//
+//            } else {
+//                int indexOfCurrentPlayer = player.indexOf(playerCurrent);
+//                int indexOfNewPlayer = indexOfCurrentPlayer + 1;
+//                if(indexOfNewPlayer >= player.size()-1) {
+//                    indexOfNewPlayer = 0;
+//                }
+//                playerCurrent = player.get(indexOfNewPlayer);
+//            }
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
     @FXML
     public void hit() {
