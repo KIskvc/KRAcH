@@ -11,7 +11,7 @@ import javafx.scene.control.TextField;
 
 import java.util.ArrayList;
 import java.util.Objects;
-import javafx.event.ActionEvent;
+
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -42,6 +42,18 @@ public class GameController {
     private TextField statusTextField;
     @FXML
     private Button hit;
+    @FXML
+    private Button split;
+    @FXML
+    private TextField player1;
+    @FXML
+    private TextField player2;
+    @FXML
+    private TextField player3;
+    @FXML
+    private Button submitbtn;
+    @FXML
+    private Label NameErrorLbl;
 
     private ArrayList<Player> player = new ArrayList<>();
     private static final int STARTBALANCE = 1000;
@@ -52,23 +64,100 @@ public class GameController {
     public void initialize() throws InterruptedException {
         Dealer dealer = new Dealer("Mr.MakeYouBroke");
         game = new Game(player, dealer);
-        Player player1 = new Player("Rana", STARTBALANCE );
-        Player player2 = new Player("Kenan", STARTBALANCE );
-        Player player3 = new Player("Harun", STARTBALANCE );
-        player.add(player1);
-        player.add(player2);
-        player.add(player3);
+        //Player player1 = new Player("Rana", STARTBALANCE );
+        //Player player2 = new Player("Kenan", STARTBALANCE );
+        //Player player3 = new Player("Harun", STARTBALANCE );
+        //player.add(player1);
+        //player.add(player2);
+        //player.add(player3);
 
-        hit.setDisable(true);
+        //hit.setDisable(true);
         //playerCurrent = null;
-        statusTextField.setText("Drücke 'Play', um das Spiel zu starten!");
+        //statusTextField.setText("Drücke 'Play', um das Spiel zu starten!");
         //initGame();
-        playerCurrent = player.getFirst();
-        placeBetText.setText(playerCurrent.getName() + ", place your bet!");
-        placeBetBox.setVisible(false);
+        //playerCurrent = player.getFirst();
+        //placeBetText.setText(playerCurrent.getName() + ", place your bet!");
+        //placeBetBox.setVisible(false);
     }
 
-    /* //---Kenans---
+    @FXML
+    public void handleSubmitBtn(ActionEvent actionEvent) {
+        //eigener Controller?
+        //arraylist beibehalten
+        //Scene manager adaptieren
+
+        // Wenn keine Namen at all eingegeben wurden nach Submit
+        if (player1.getText().isEmpty()) {
+            NameErrorLbl.setText("Error! At least one player (Player 1) is required.");
+            return;
+        }else{
+            Player newplayer = new Player(player1.getText(),STARTBALANCE);
+            player.add(newplayer);
+        }
+
+        if (!player2.getText().isEmpty()) {
+            Player newplayer = new Player(player2.getText(),STARTBALANCE);
+            player.add(newplayer);
+        }
+
+        if (!player3.getText().isEmpty()&&!player2.getText().isEmpty()) {
+            Player newplayer = new Player(player3.getText(),STARTBALANCE);
+            player.add(newplayer);
+        }
+
+       SceneManager.getInstance().switchScene("game-view.fxml");
+
+    }
+/*
+    @FXML
+    public void handleSplitButton() {
+    /*
+        if wert der 2 karten gleich, dann split möglich
+            split um die hand zu teilen
+            anschließend werden für jede hand 1 karte gezogen (hit), hit für beide hände
+            hit also aufrufen für beide hände
+
+        wenn nicht, dann disable button
+
+
+
+
+        Hand currentHand = playerCurrent.getHand();
+        if (currentHand.getCards().size() == 2 && currentHand.getCards().get(0).getValue() == currentHand.getCards().get(1).getValue()) {
+            split.setDisable(false);
+        }else {
+            split.setDisable(true);
+        }
+
+        if (playerCurrent != null) {
+
+            //Überprüfen, ob Split möglich ist
+            if (currentHand.getCards().size() == 2 && currentHand.getCards().get(0).getValue() == currentHand.getCards().get(1).getValue()) {
+                currentHand.split(game.getDeck().dealCard()); //Split durchführen
+
+                // UI für gesplittete Hände aktualisieren
+                HBox playersFirstHandBox = new HBox();
+                HBox playersSecondHandBox = new HBox();
+
+                // Erste gesplittete Hand anzeigen
+                for (Card card : currentHand.getSplitCards().get(0)) {
+                    ImageView cardImageView = createCardImageView(card);
+                    playersFirstHandBox.getChildren().add(cardImageView);
+                }
+
+                // Zweite gesplittete Hand anzeigen
+                for (Card card : currentHand.getSplitCards().get(1)) {
+                    ImageView cardImageView = createCardImageView(card);
+                    playersSecondHandBox.getChildren().add(cardImageView);
+                }
+                statusTextField.setText(playerCurrent.getName() + " split cards successfully!");
+            }
+
+            }
+        }
+
+*/
+    /* ---Kenans---
     //Change currentPlayer to next Player.
     public void setNextPlayer() {
         try {
@@ -103,7 +192,7 @@ public class GameController {
                 }
             }
         } catch (Exception e) {
-            throw new RuntimeException("Fehler beim Wechseln des Spielers: " + e.getMessage());
+            throw new RuntimeException("Error occurred with switching player: " + e.getMessage());
         }
     }
 
@@ -132,11 +221,11 @@ public class GameController {
             currentHand.getChildren().add(newCard);
             int handValue = playerCurrent.getHand().getCurrentScore();
             if (handValue < 21) {
-                statusTextField.setText(playerCurrent.getName() + "'s aktueller Punktestand: " + handValue);
+                statusTextField.setText(playerCurrent.getName() + "'s current score: " + handValue);
             } else if (handValue == 21) {
-                statusTextField.setText(playerCurrent.getName() + " hat Blackjack erreicht!");
+                statusTextField.setText(playerCurrent.getName() + " reached Blackjack!");
             } else {
-                statusTextField.setText(playerCurrent.getName() + " ist über 21! Bust!");
+                statusTextField.setText(playerCurrent.getName() + " is over 21! Bust!");
             }
             if (handValue >= 21) {
                 hit.setDisable(true);
@@ -144,7 +233,7 @@ public class GameController {
                 hit.setDisable(false);
             }
         } else {
-            statusTextField.setText("Kein Spieler aktiv. Bitte starte das Spiel.");
+            statusTextField.setText("No active players. Please start game.");
         }
     }
 
@@ -154,14 +243,14 @@ public class GameController {
         hit.setDisable(false);
         game.initializeGame();
         playerCurrent = player.get(0);
-        statusTextField.setText(playerCurrent.getName() + " ist an der Reihe.");
+        statusTextField.setText(playerCurrent.getName() + ", it is your turn.");
 
         placeBetBox.setVisible(true);
 
         Deck currentDeck = game.getDeck();
-        for(int i = 0; i < 2; i++) {
+        for (int i = 0; i < 2; i++) {
             int handcounter = 0;
-            for(Player player : game.getPlayer()) {
+            for (Player player : game.getPlayer()) {
                 dealCardToPlayer(player, currentDeck, handcounter);
                 game.setDeck(currentDeck);
                 handcounter++;
@@ -176,11 +265,11 @@ public class GameController {
         currentPlayerHand.addCard(currentCard);
         HBox currentHbox;
         try {
-            if(handIndex == 0) {
+            if (handIndex == 0) {
                 currentHbox = firstHand;
-            } else if(handIndex == 1) {
+            } else if (handIndex == 1) {
                 currentHbox = secondHand;
-            } else if(handIndex == 2) {
+            } else if (handIndex == 2) {
                 currentHbox = thirdHand;
             } else {
                 currentHbox = dealerHand;
@@ -241,7 +330,7 @@ public class GameController {
         errLabel.setText("");
 
         int currentIndex = player.indexOf(playerCurrent);
-        if(currentIndex < player.size()-1){
+        if (currentIndex < player.size() - 1) {
             setNextPlayer();
             placeBetText.setText(playerCurrent.getName() + ", place your bet!");
         } else {
@@ -249,7 +338,7 @@ public class GameController {
         }
     }
 
-    public void handleSubmitBet (ActionEvent actionEvent){
+    public void handleSubmitBet(ActionEvent actionEvent) {
         handleBet(actionEvent);
     }
     // Code block for placing bet
@@ -279,7 +368,7 @@ public class GameController {
             setNextPlayer();
 
         } catch (IllegalStateException e) {
-        errLabelDouble.setText("Error: " + e.getMessage());
+            errLabelDouble.setText("Error: " + e.getMessage());
         }
     }
 

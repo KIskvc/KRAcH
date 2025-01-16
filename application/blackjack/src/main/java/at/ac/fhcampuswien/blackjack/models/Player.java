@@ -53,7 +53,7 @@ public class Player extends BasePlayer {
     public void stand() {
         System.out.println(name + " stands.");
     }
-
+/*
     public void split() {
         if (this.hand.getCards().size() == 2 &&
                 this.hand.getCards().get(0).getValue() == this.hand.getCards().get(1).getValue()) {
@@ -63,6 +63,7 @@ public class Player extends BasePlayer {
             System.out.println(name + " cannot split their hand.");
         }
     }
+    */
 
     public void doubleBet(Deck deck, Game game) {
         int doubleAmount = currentBet;
