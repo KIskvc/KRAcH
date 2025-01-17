@@ -171,6 +171,9 @@
          </Label>
          <!-- New TextField for displaying status -->
          <TextField fx:id="statusTextField" editable="false" layoutX="50.0" layoutY="720.0" prefWidth="1100.0" style="-fx-background-color: #f0f0f0; -fx-border-color: #8B0000; -fx-border-radius: 5px;" />
+         <HBox fx:id="secondSplitHandBox" alignment="CENTER" layoutX="500.0" layoutY="656.0" prefHeight="70.0" prefWidth="180.0" />
+         <HBox fx:id="thirdSplitHandBox" alignment="CENTER" layoutX="150.0" layoutY="414.0" prefHeight="70.0" prefWidth="180.0" rotate="90.0" />
+         <HBox fx:id="firstSplitHandBox" alignment="CENTER" layoutX="875.0" layoutY="476.0" prefHeight="70.0" prefWidth="180.0" rotate="270.0" />
 
       </children>
    </Pane>

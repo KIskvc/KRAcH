@@ -9,8 +9,8 @@ import javafx.scene.layout.HBox;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
 
-import java.util.ArrayList;
-import java.util.Objects;
+import java.util.*;
+
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -57,11 +57,18 @@ public class GameController {
     private Button submitbtn;
     @FXML
     private Label NameErrorLbl;
+    @FXML
+    private HBox firstSplitHandBox;
+    @FXML
+    private HBox secondSplitHandBox;
+    @FXML
+    private HBox thirdSplitHandBox;
 
     private ArrayList<Player> player = new ArrayList<>();
     private static final int STARTBALANCE = 1000;
     private Player playerCurrent;
     private Game game;
+    private Map<Player, List<Hand>> playerHands = new HashMap<>();
 
     @FXML
     public void initialize() throws InterruptedException {
@@ -116,55 +123,77 @@ public class GameController {
        SceneManager.getInstance().switchScene("game-view.fxml");
 
     }
-/*
+
     @FXML
     public void handleSplitButton() {
-    /*
-        if wert der 2 karten gleich, dann split möglich
-            split um die hand zu teilen
-            anschließend werden für jede hand 1 karte gezogen (hit), hit für beide hände
-            hit also aufrufen für beide hände
+        // Überprüfung ob Split möglich is
+        if (playerCurrent == null || playerCurrent.getHand().getCards().size() != 2) {
+            statusTextField.setText("Split is only possible if you have 2 Cards");
+            return;
+        }
 
-        wenn nicht, dann disable button
+        Card firstCard = playerCurrent.getHand().getCards().get(0);
+        Card secondCard = playerCurrent.getHand().getCards().get(1);
 
-
-
+        if (firstCard.getValue() != secondCard.getValue()) {
+            statusTextField.setText("Cards have different values! Split is not possible!");
+            return;
+        }
 
         Hand currentHand = playerCurrent.getHand();
-        if (currentHand.getCards().size() == 2 && currentHand.getCards().get(0).getValue() == currentHand.getCards().get(1).getValue()) {
-            split.setDisable(false);
-        }else {
-            split.setDisable(true);
+        Card card1 = currentHand.getCards().get(0);
+        Card card2 = currentHand.getCards().get(1);
+
+        Hand hand1 = new Hand();
+        Hand hand2 = new Hand();
+
+        hand1.addCard(card1);
+        hand2.addCard(card2);
+
+        // Füge die neuen Hands zur Liste hinzu
+        List<Hand> hands = playerHands.getOrDefault(playerCurrent, new ArrayList<>());
+        hands.add(hand1);
+        hands.add(hand2);
+        playerHands.put(playerCurrent, hands); //speichern der Hands in der Map
+
+        // neune Karten
+        Card newCardHand1 = game.getDeck().dealCard();
+        hand1.addCard(newCardHand1);
+        Card newCardHand2 = game.getDeck().dealCard();
+        hand2.addCard(newCardHand2);
+
+        // updaten der beiden hands
+        if (player.indexOf(playerCurrent) == 0) {
+            updateHandBox(firstHand,hand1);
+            updateHandBox(firstSplitHandBox,hand2);
+            firstSplitHandBox.setVisible(true);
+        } else if (player.indexOf(playerCurrent) == 1) {
+            updateHandBox(secondHand,hand1);
+            updateHandBox(secondSplitHandBox,hand2);
+            secondSplitHandBox.setVisible(true);
+        } else if (player.indexOf(playerCurrent) == 2) {
+            updateHandBox(thirdHand,hand1);
+            updateHandBox(thirdSplitHandBox,hand2);
+            thirdSplitHandBox.setVisible(true);
         }
+    }
 
-        if (playerCurrent != null) {
-
-            //Überprüfen, ob Split möglich ist
-            if (currentHand.getCards().size() == 2 && currentHand.getCards().get(0).getValue() == currentHand.getCards().get(1).getValue()) {
-                currentHand.split(game.getDeck().dealCard()); //Split durchführen
-
-                // UI für gesplittete Hände aktualisieren
-                HBox playersFirstHandBox = new HBox();
-                HBox playersSecondHandBox = new HBox();
-
-                // Erste gesplittete Hand anzeigen
-                for (Card card : currentHand.getSplitCards().get(0)) {
-                    ImageView cardImageView = createCardImageView(card);
-                    playersFirstHandBox.getChildren().add(cardImageView);
-                }
-
-                // Zweite gesplittete Hand anzeigen
-                for (Card card : currentHand.getSplitCards().get(1)) {
-                    ImageView cardImageView = createCardImageView(card);
-                    playersSecondHandBox.getChildren().add(cardImageView);
-                }
-                statusTextField.setText(playerCurrent.getName() + " split cards successfully!");
-            }
-
-            }
+    public void updateHandBox(HBox handBox, Hand hand){
+        handBox.getChildren().clear();
+        for (int i = 0; i < hand.getCards().size(); i++) {
+            Card card = hand.getCards().get(i);
+            String path = card.getImage();
+            Image newCardImage = new Image(Objects.requireNonNull(getClass().getResource(path)).toExternalForm());
+            ImageView newCard = new ImageView();
+            newCard.setFitWidth(50);
+            newCard.setPickOnBounds(true);
+            newCard.setPreserveRatio(true);
+            newCard.setImage(newCardImage);
+            handBox.getChildren().add(newCard);
         }
+    }
 
-*/
+
     /* ---Kenans---
     //Change currentPlayer to next Player.
     public void setNextPlayer() {
