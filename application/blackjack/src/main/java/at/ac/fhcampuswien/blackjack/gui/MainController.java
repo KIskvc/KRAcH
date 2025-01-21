@@ -15,7 +15,7 @@ public class MainController {
 
     @FXML
     public void startGame() {
-        SceneManager.getInstance().switchScene("game-view.fxml");
+        SceneManager.getInstance().switchScene("player-screen-view.fxml");
     }
 
 }

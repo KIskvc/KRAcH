@@ -54,8 +54,6 @@ public class GameController {
     @FXML
     private TextField player3;
     @FXML
-    private Button submitbtn;
-    @FXML
     private Label NameErrorLbl;
     @FXML
     private HBox firstSplitHandBox;
@@ -72,6 +70,7 @@ public class GameController {
 
     @FXML
     public void initialize() throws InterruptedException {
+       /*
         Dealer dealer = new Dealer("Mr.MakeYouBroke");
         game = new Game(player, dealer);
         Player player1 = new Player("Rana", STARTBALANCE );
@@ -93,6 +92,8 @@ public class GameController {
         //playerCurrent = player.getFirst();
         //placeBetText.setText(playerCurrent.getName() + ", place your bet!");
         placeBetBox.setVisible(false);
+        */
+
     }
 
     @FXML
@@ -102,25 +103,43 @@ public class GameController {
         //Scene manager adaptieren
 
         // Wenn keine Namen at all eingegeben wurden nach Submit
+        Dealer dealer = new Dealer("Mr.MakeYouBroke");
+        game = new Game(player, dealer);
+
         if (player1.getText().isEmpty()) {
             NameErrorLbl.setText("Error! At least one player (Player 1) is required.");
             return;
         }else{
             Player newplayer = new Player(player1.getText(),STARTBALANCE);
             player.add(newplayer);
+            SceneManager.getInstance().switchScene("game-view.fxml");
         }
 
         if (!player2.getText().isEmpty()) {
             Player newplayer = new Player(player2.getText(),STARTBALANCE);
             player.add(newplayer);
+            SceneManager.getInstance().switchScene("game-view.fxml");
         }
 
         if (!player3.getText().isEmpty()&&!player2.getText().isEmpty()) {
             Player newplayer = new Player(player3.getText(),STARTBALANCE);
             player.add(newplayer);
+            SceneManager.getInstance().switchScene("game-view.fxml");
         }
 
-       SceneManager.getInstance().switchScene("game-view.fxml");
+        if(player1.getText().matches("\\d+")&&player2.getText().matches("\\d+")&&player3.getText().matches("\\d+")){
+            NameErrorLbl.setText("Invalid! No numbers allowed. Please enter a name.");
+            return;
+        }
+
+        hit.setDisable(true);
+        stand.setDisable(true);
+        split.setDisable(true);
+        doppelt.setDisable(true);
+
+        playerCurrent = null;
+        statusTextField.setText("Click Play to start the Game!");
+        placeBetBox.setVisible(false);
 
     }
 
