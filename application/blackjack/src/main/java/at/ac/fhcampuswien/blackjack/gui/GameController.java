@@ -119,7 +119,6 @@ public class GameController {
         playerIterator = player.iterator();
     }
 
-    //---Kenans---
     //Change currentPlayer to next Player.
     public void setNextPlayer1() {
         try {
@@ -156,25 +155,6 @@ public class GameController {
             playDealerTurn();
         }
     }
-
-    //---Haruns----
-    //Change currentPlayer to next Player.
-//    public void setNextPlayer() {
-//        try {
-//            if (playerCurrent == null) {
-//                playerCurrent = player.get(0);
-//            } else {
-//                int indexOfCurrentPlayer = player.indexOf(playerCurrent);
-//                if (indexOfCurrentPlayer < player.size() - 1) {
-//                    playerCurrent = player.get(indexOfCurrentPlayer + 1);
-//                } else {
-//                    playerCurrent = null;
-//                }
-//            }
-//        } catch (Exception e) {
-//            throw new RuntimeException("Error occurred with switching player: " + e.getMessage());
-//        }
-//    }
 
     @FXML
     public void initGame() throws InterruptedException {
@@ -319,7 +299,6 @@ public class GameController {
             }
 
             if (player instanceof Dealer && !currentPlayerHand.getCards().isEmpty() && currentPlayerHand.getCurrentScore() != 10 && currentPlayerHand.getCurrentScore() != 11) {
-                Dealer dealer = (Dealer) player;
                 path = currentCard.getBackImage();
                 newCardImage = new Image(Objects.requireNonNull(getClass().getResource(path)).toExternalForm());
             } else {
@@ -506,33 +485,10 @@ public class GameController {
         Player playerCurrent = (Player) currentPlayer;
         playerCurrent.stand();
         goToNextPlayer();
-
-//        if (playerCurrent != null) {
-//            playerCurrent.stand();
-//            setNextPlayer1();
-//
-//            if (playerCurrent != null) {
-//                statusTextField.setText(playerCurrent.getName() + " ist an der Reihe.");
-//                hit.setDisable(false);
-//            } else {
-//                statusTextField.setText("Alle Spieler sind fertig. Dealer ist dran!");
-//                hit.setDisable(true);
-//                Dealer dealer = game.getDealer();
-//                dealer.playTurn(game);
-//                revealDealerCard();
-//            }
-//        } else {
-//            statusTextField.setText("Kein Spieler aktiv. Bitte starte das Spiel.");
-//        }
     }
 
     @FXML
     public void handleSubmitBtn(ActionEvent actionEvent) {
-        //eigener Controller?
-        //arraylist beibehalten
-        //Scene manager adaptieren
-
-        // Wenn keine Namen at all eingegeben wurden nach Submit
         if (player1.getText().isEmpty()) {
             NameErrorLbl.setText("Error! At least one player (Player 1) is required.");
             return;
