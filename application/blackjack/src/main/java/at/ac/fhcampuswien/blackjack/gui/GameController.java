@@ -79,6 +79,18 @@ public class GameController {
     private HBox secondSplitHandBox;
     @FXML
     private HBox thirdSplitHandBox;
+    @FXML
+    private TextField firstPlayerBalance;
+    @FXML
+    private TextField firstPlayerBet;
+    @FXML
+    private TextField secondPlayerBalance;
+    @FXML
+    private TextField secondPlayerBet;
+    @FXML
+    private TextField thirdPlayerBalance;
+    @FXML
+    private TextField thirdPlayerBet;
 
     private ArrayList<Player> player = new ArrayList<>();
     private static final int STARTBALANCE = 1000;
@@ -95,11 +107,14 @@ public class GameController {
         Player player2 = new Player("Kenan", STARTBALANCE);
         Player player3 = new Player("Harun", STARTBALANCE);
         player.add(player1);
-        firstPlayerName.setText("1. " + player1.getName());
+        firstPlayerName.setText(player1.getName());
+        firstPlayerBalance.setText("$" + String.valueOf(player1.getBalance()));
         player.add(player2);
-        secondPlayerName.setText("2. " + player2.getName());
+        secondPlayerName.setText(player2.getName());
+        secondPlayerBalance.setText("$" + String.valueOf(player2.getBalance()));
         player.add(player3);
-        thirdPlayerName.setText("3. " + player3.getName());
+        thirdPlayerName.setText(player3.getName());
+        thirdPlayerBalance.setText("$" + String.valueOf(player3.getBalance()));
         game = new Game(player, dealer);
         playerIterator = player.iterator();
     }
@@ -202,8 +217,16 @@ public class GameController {
             return false;
         }
 
+
+
         playerInTurn.setCurrentBet(bet);
         playerInTurn.placeBet(bet);
+
+
+
+        updateBetField(playerInTurn, bet);
+
+        updateBalanceField(playerInTurn);
 
         betTextField.clear();
         errLabel.setText("");
@@ -215,6 +238,40 @@ public class GameController {
         }
         return true;
     }
+
+    public void updateBetField(Player playerObject, int bet) {
+        TextField currentBetField;
+
+        if (player.indexOf(playerObject) == 0) {
+            currentBetField = firstPlayerBet;
+        } else if (player.indexOf(playerObject) == 1) {
+            currentBetField = secondPlayerBet;
+        } else {
+            currentBetField = thirdPlayerBet;
+        }
+        currentBetField.setText("$ " + String.valueOf(bet));
+    }
+
+    public void resetBetFields() {
+        firstPlayerBet.setText("");
+        secondPlayerBet.setText("");
+        thirdPlayerBet.setText("");
+    }
+
+    public void updateBalanceField(Player playerObject) {
+        TextField currentBalanceField;
+
+        if (player.indexOf(playerObject) == 0) {
+            currentBalanceField = firstPlayerBalance;
+        } else if (player.indexOf(playerObject) == 1) {
+            currentBalanceField = secondPlayerBalance;
+        } else {
+            currentBalanceField = thirdPlayerBalance;
+        }
+        currentBalanceField.setText("$ " + String.valueOf(playerObject.getBalance()));
+    }
+
+
 
     public void handleSubmitBet() {
         boolean done = handleBet();
@@ -291,11 +348,6 @@ public class GameController {
         Dealer dealer = game.getDealer();
         if (dealer.hasBlackJack()) {
             handleDealerWin();
-//            Timer timer = new Timer(3000, e -> {
-//                Platform.runLater(this::handleDealerWin);
-//            });
-//            timer.setRepeats(false);
-//            timer.start();
             return;
         }
         controlGroup.setVisible(true);
@@ -326,7 +378,9 @@ public class GameController {
             } else if (player.getHand().getCurrentScore() == game.getDealer().getHand().getCurrentScore()) {
                 player.setBalance(player.getBalance() + player.getCurrentBet());
             }
+            updateBalanceField(player);
         }
+        resetBetFields();
         newRoundButton.setVisible(true);
         //reinitializeGame();
     }
@@ -335,11 +389,11 @@ public class GameController {
         for (Player player : game.getPlayer()) {
             if (player.getHand().getCurrentScore() == 21) {
                 player.setBalance(player.getBalance() + player.getHand().getCurrentScore());
+                updateBalanceField(player);
             }
         }
+        resetBetFields();
         newRoundButton.setVisible(true);
-
-        //reinitializeGame();
     }
 
     public void reinitializeGame () {
@@ -352,6 +406,10 @@ public class GameController {
         for (Player player : game.getPlayer()) {
             player.setHand(new Hand());
         }
+        game.getDealer().setHand(new Hand());
+
+        currentPlayer = null;
+        setNextPlayer1();
         statusTextField.setText("");
         placeBetText.setText(currentPlayer.getName() + ", place your bet!");
         placeBetBox.setVisible(true);
@@ -394,6 +452,9 @@ public class GameController {
 
             if (handValue < 21) {
                 updateScore(playerCurrent);
+                if(playerCurrent.isHasDoubled()) {
+                    goToNextPlayer();
+                }
             } else if (handValue == 21) {
                 //statusTextField.setText(playerCurrent.getName() + " has BlackJack!");
                 System.out.println(playerCurrent.getName() + " has BlackJack!");
@@ -410,7 +471,6 @@ public class GameController {
 
         @FXML
         public void doubleDown () {
-        // noch nicht fertig
         Player playerCurrent = (Player) currentPlayer;
             if (playerCurrent != null) {
                 try {
@@ -420,19 +480,23 @@ public class GameController {
 
                     int doubledBet = playerCurrent.getCurrentBet() * 2;
                     if (doubledBet > playerCurrent.getBalance()) {
-                        errLabelDouble.setText(playerCurrent.getName() + " doesn't have enough balance to double!");
+                        //errLabelDouble.setText(playerCurrent.getName() + " doesn't have enough balance to double!");
                         return;
                     }
 
                     playerCurrent.doubleBet(game.getDeck(), game);
+                    updateBalanceField(playerCurrent);
+                    updateBetField(playerCurrent, doubledBet);
+
                     hit();
 
-                    errLabelDouble.setText(playerCurrent.getName() + "'s bet has doubled! Current bet: " + playerCurrent.getCurrentBet());
+                    //errLabelDouble.setText(playerCurrent.getName() + "'s bet has doubled! Current bet: " + playerCurrent.getCurrentBet());
 
-                    setNextPlayer1();
+                    //setNextPlayer1();
 
                 } catch (IllegalStateException e) {
-                    errLabelDouble.setText("Error: " + e.getMessage());
+                    //errLabelDouble.setText("Error: " + e.getMessage());
+                    System.out.println("Error: " + e.getMessage());
                 }
             }
         }

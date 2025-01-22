@@ -28,6 +28,8 @@ public class Deck {
 
     public void shuffleDeck(){
         Collections.shuffle(this.deck);
+        Collections.shuffle(this.deck);
+        Collections.shuffle(this.deck);
     }
 
     public Card dealCard(){
