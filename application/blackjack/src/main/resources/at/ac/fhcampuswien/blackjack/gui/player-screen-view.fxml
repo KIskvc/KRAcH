@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox fx:id="playerScreen" prefHeight="844.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.ac.fhcampuswien.blackjack.gui.GameController">
+    <Pane maxWidth="1200.0" prefHeight="844.0">
+        <ImageView fitHeight="844.0" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true"
+                   style="-fx-view-order: 1;">
+            <image>
+                <Image url="@../../../../../images/start_screen.png"/>
+            </image>
+        </ImageView>
+        <Text fill="WHITE" layoutX="437.0" layoutY="462.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0"
+              text="1-3 Players max." textAlignment="CENTER" wrappingWidth="330.0">
+           <font>
+               <Font name="Arial Bold Italic" size="36.0"/>
+           </font>
+        </Text>
+        <Button fx:id="submitbtn" layoutX="529.0" layoutY="705.0" mnemonicParsing="false" onAction="#handleSubmitBtn"
+                prefHeight="91.0" prefWidth="176.0" style="-fx-background-color: #8B0000; -fx-background-radius: 10px;"
+                text="Submit" textFill="WHITE">
+           <font>
+               <Font name="Arial Bold" size="36.0"/>
+           </font>
+        </Button>
+        <TextField fx:id="player1" alignment="CENTER" layoutX="100.0" layoutY="592.0" prefHeight="68.0"
+                   prefWidth="282.0" promptText="Player 1" style="-fx-background-radius: 5px;">
+           <font>
+               <Font size="24.0"/>
+           </font>
+        </TextField>
+        <Text fill="WHITE" layoutX="440.0" layoutY="515.0" stroke="BLACK" strokeType="OUTSIDE" strokeWidth="0.0"
+              text="Enter name(s):" textAlignment="CENTER" wrappingWidth="330.0">
+           <font>
+               <Font name="Arial Bold Italic" size="36.0"/>
+           </font>
+        </Text>
+        <TextField fx:id="player2" alignment="CENTER" layoutX="472.0" layoutY="591.0" prefHeight="68.0"
+                   prefWidth="282.0" promptText="Player 2" style="-fx-background-radius: 5px;">
+           <font>
+               <Font size="24.0"/>
+           </font>
+        </TextField>
+        <TextField fx:id="player3" alignment="CENTER" layoutX="846.0" layoutY="590.0" prefHeight="68.0"
+                   prefWidth="282.0" promptText="Player 3" style="-fx-background-radius: 5px;">
+           <font>
+               <Font size="24.0"/>
+           </font>
+        </TextField>
+        <Label fx:id="NameErrorLbl" alignment="CENTER" contentDisplay="CENTER" layoutX="331.0" layoutY="532.0"
+               prefHeight="48.0" prefWidth="617.0" textFill="WHITE">
+           <font>
+               <Font name="Arial" size="24.0"/>
+           </font>
+        </Label>
+    </Pane>
+</VBox>

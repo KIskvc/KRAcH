@@ -27,8 +27,8 @@
          </ImageView>
          <Group fx:id="controlGroup" layoutX="31.0" layoutY="768.0" visible="false">
             <children>
-      
-                     <Button fx:id="hit" layoutX="19.0" layoutY="19.0" mnemonicParsing="false" onAction="#hit" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #8B0000; -fx-background-radius: 15px;" text="HIT" textAlignment="CENTER" textFill="WHITE">
+
+               <Button fx:id="hit" layoutX="19.0" layoutY="19.0" mnemonicParsing="false" onAction="#hit" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #8B0000; -fx-background-radius: 15px;" text="HIT" textAlignment="CENTER" textFill="WHITE">
                   <font>
                      <Font name="Arial" size="20.0" />
                   </font>
@@ -43,8 +43,8 @@
                      <Cursor fx:constant="HAND" />
                   </cursor>
                </Button>
-      
-                     <Button fx:id="stand" layoutX="169.0" layoutY="19.0" mnemonicParsing="false" onAction="#handleStandButton" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #8B0000; -fx-background-radius: 15px;" text="STAND" textAlignment="CENTER" textFill="WHITE">
+
+               <Button fx:id="stand" layoutX="169.0" layoutY="19.0" mnemonicParsing="false" onAction="#handleStandButton" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #8B0000; -fx-background-radius: 15px;" text="STAND" textAlignment="CENTER" textFill="WHITE">
                   <font>
                      <Font name="Arial" size="20.0" />
                   </font>
@@ -59,8 +59,8 @@
                      <Cursor fx:constant="HAND" />
                   </cursor>
                </Button>
-      
-                     <Button fx:id="doppelt" layoutX="319.0" layoutY="19.0" mnemonicParsing="false" onAction="#doubleDown" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #8B0000; -fx-background-radius: 15px;" text="DOUBLE" textAlignment="CENTER" textFill="WHITE">
+
+               <Button fx:id="doppelt" layoutX="319.0" layoutY="19.0" mnemonicParsing="false" onAction="#doubleDown" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #8B0000; -fx-background-radius: 15px;" text="DOUBLE" textAlignment="CENTER" textFill="WHITE">
                   <font>
                      <Font name="Arial" size="20.0" />
                   </font>
@@ -75,8 +75,8 @@
                      <Cursor fx:constant="HAND" />
                   </cursor>
                </Button>
-      
-                     <Button fx:id="split" layoutX="469.0" layoutY="19.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #8B0000; -fx-background-radius: 15px;" text="SPLIT" textAlignment="CENTER" textFill="WHITE">
+
+               <Button fx:id="split" layoutX="469.0" layoutY="19.0" mnemonicParsing="false" onAction="#handleSplitButton" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #8B0000; -fx-background-radius: 15px;" text="SPLIT" textAlignment="CENTER" textFill="WHITE">
                   <font>
                      <Font name="Arial" size="20.0" />
                   </font>
@@ -91,8 +91,8 @@
                      <Cursor fx:constant="HAND" />
                   </cursor>
                </Button>
-      
-                     <Button fx:id="leave" layoutX="1029.0" layoutY="19.0" mnemonicParsing="false" onAction="#handleLeaveButton" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #8B0000; -fx-background-radius: 15px;" text="LEAVE" textAlignment="CENTER" textFill="WHITE">
+
+               <Button fx:id="leave" layoutX="1029.0" layoutY="19.0" mnemonicParsing="false" onAction="#handleLeaveButton" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #8B0000; -fx-background-radius: 15px;" text="LEAVE" textAlignment="CENTER" textFill="WHITE">
                   <font>
                      <Font name="Arial" size="20.0" />
                   </font>
@@ -110,14 +110,14 @@
             </children>
          </Group>
          <HBox fx:id="secondHand" alignment="CENTER" layoutX="500.0" layoutY="576.0" prefHeight="70.0" prefWidth="180.0" />
-         <HBox fx:id="thirdHand" alignment="CENTER" layoutX="230.0" layoutY="414.0" maxHeight="70.0" maxWidth="180.0" prefHeight="70.0" prefWidth="180.0" rotate="90.0" />
+         <HBox fx:id="thirdHand" alignment="CENTER" layoutX="230.0" layoutY="414.0" prefHeight="70.0" prefWidth="180.0" rotate="90.0" />
          <HBox fx:id="firstHand" alignment="CENTER" layoutX="795.0" layoutY="476.0" prefHeight="70.0" prefWidth="180.0" rotate="270.0" />
          <ImageView fitWidth="50.0" layoutX="753.0" layoutY="324.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@../../../../../cards/back.png" />
             </image>
          </ImageView>
-         <HBox fx:id="dealerHand" alignment="CENTER_LEFT" layoutX="500.0" layoutY="324.0" prefHeight="70.0" prefWidth="180.0" rotate="180.0" />
+         <HBox fx:id="dealerHand" alignment="CENTER" layoutX="500.0" layoutY="324.0" prefHeight="70.0" prefWidth="180.0" rotate="180.0" />
          <Button fx:id="playButton" layoutX="525.0" layoutY="449.0" mnemonicParsing="false" onAction="#initGame" prefWidth="150.0" style="-fx-background-color: #026D36; -fx-background-radius: 20px; -fx-opacity: 0.8;" text="Play" textAlignment="CENTER" textFill="WHITE">
             <font>
                <Font name="Arial" size="24.0" />
@@ -238,7 +238,9 @@
                <Insets />
             </opaqueInsets>
          </Button>
-
+         <HBox fx:id="secondSplitHandBox" alignment="CENTER" layoutX="500.0" layoutY="656.0" prefHeight="70.0" prefWidth="180.0" />
+         <HBox fx:id="thirdSplitHandBox" alignment="CENTER" layoutX="150.0" layoutY="414.0" prefHeight="70.0" prefWidth="180.0" rotate="90.0" />
+         <HBox fx:id="firstSplitHandBox" alignment="CENTER" layoutX="875.0" layoutY="476.0" prefHeight="70.0" prefWidth="180.0" rotate="270.0" />
       </children>
    </Pane>
 </VBox>

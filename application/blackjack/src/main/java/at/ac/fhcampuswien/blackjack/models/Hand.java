@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Hand {
 
     private ArrayList<Card> cards;;
-    private ArrayList<ArrayList<Card>> splittedCards;
+    private ArrayList<ArrayList<Card>> splitCards;;
     private int currentScore;
 
     public Hand() {
@@ -45,15 +45,15 @@ public class Hand {
     public void split(Card card) {
             //überprüfen, ob ein Split möglich ist: genau 2 Karten mit gleichem Wert
         if (cards.size() == 2 && cards.get(0).getValue() == cards.get(1).getValue()) {
-            splittedCards = new ArrayList<>();
-            ArrayList<Card> firstHand = new ArrayList<>();
-            ArrayList<Card> secondHand = new ArrayList<>();
+            splitCards = new ArrayList<>();
+            ArrayList<Card> playersFirstHand = new ArrayList<>();
+            ArrayList<Card> playersSecondHand = new ArrayList<>();
 
-            firstHand.add(cards.get(0));
-            secondHand.add(cards.get(1));
+            playersFirstHand.add(cards.get(0));
+            playersSecondHand.add(cards.get(1));
 
-            splittedCards.add(firstHand);
-            splittedCards.add(secondHand);
+            splitCards.add(playersFirstHand);
+            splitCards.add(playersSecondHand);
 
             cards.clear();
         }
@@ -63,8 +63,8 @@ public class Hand {
         return cards;
     }
 
-    public ArrayList<ArrayList<Card>> getSplittedCards(){
-        return splittedCards;
+    public ArrayList<ArrayList<Card>> getSplitCards(){
+        return splitCards;
     }
 
 }
