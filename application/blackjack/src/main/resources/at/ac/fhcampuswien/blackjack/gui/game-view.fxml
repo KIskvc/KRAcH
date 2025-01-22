@@ -76,7 +76,7 @@
                   </cursor>
                </Button>
 
-               <Button fx:id="split" layoutX="469.0" layoutY="19.0" mnemonicParsing="false" onAction="#handleSplitButton" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #8B0000; -fx-background-radius: 15px;" text="SPLIT" textAlignment="CENTER" textFill="WHITE">
+               <Button fx:id="split" layoutX="469.0" layoutY="19.0" mnemonicParsing="false" onAction="#handleSplitButton" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #8B0000; -fx-background-radius: 15px;" text="SPLIT" textAlignment="CENTER" textFill="WHITE" visible="false">
                   <font>
                      <Font name="Arial" size="20.0" />
                   </font>

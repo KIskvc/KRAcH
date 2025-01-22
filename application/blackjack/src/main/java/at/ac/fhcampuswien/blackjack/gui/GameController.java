@@ -119,6 +119,26 @@ public class GameController {
         playerIterator = player.iterator();
     }
 
+    public void placePlayers() {
+
+        for(Player currentPlayer : player) {
+            Integer index = player.indexOf(currentPlayer);
+            if(index == 0) {
+                firstPlayerName.setText(currentPlayer.getName());
+                firstPlayerBalance.setText("$" + String.valueOf(currentPlayer.getBalance()));
+            } else if(index == 1) {
+                secondPlayerName.setText(currentPlayer.getName());
+                secondPlayerBalance.setText("$" + String.valueOf(currentPlayer.getBalance()));
+            } else {
+                thirdPlayerName.setText(currentPlayer.getName());
+                thirdPlayerBalance.setText("$" + String.valueOf(currentPlayer.getBalance()));
+            }
+        }
+
+
+
+    }
+
     //Change currentPlayer to next Player.
     public void setNextPlayer1() {
         try {
@@ -274,7 +294,8 @@ public class GameController {
                 game.setDeck(currentDeck);
                 handcounter++;
             }
-            dealCardToPlayer(game.getDealer(), currentDeck, handcounter);
+            dealCardToPlayer(game.getDealer(), currentDeck, 3);
+            //dealCardToPlayer(game.getDealer(), currentDeck, handcounter);
         }
         playRound();
     }
@@ -325,13 +346,13 @@ public class GameController {
 
     public void playRound () {
         Dealer dealer = game.getDealer();
+        statusTextField.setVisible(true);
         if (dealer.hasBlackJack()) {
             handleDealerWin();
             return;
         }
         controlGroup.setVisible(true);
         setNextPlayer1();
-        statusTextField.setVisible(true);
         statusTextField.setText(currentPlayer.getName() + "'s turn.");
     }
 
@@ -364,7 +385,7 @@ public class GameController {
         //reinitializeGame();
     }
     public void handleDealerWin () {
-        statusTextField.setText("The bank wins .");
+        statusTextField.setText("The bank wins.");
         for (Player player : game.getPlayer()) {
             if (player.getHand().getCurrentScore() == 21) {
                 player.setBalance(player.getBalance() + player.getHand().getCurrentScore());
@@ -382,6 +403,8 @@ public class GameController {
         thirdHand.getChildren().clear();
         dealerHand.getChildren().clear();
 
+        checkBrokePlayers();
+
         for (Player player : game.getPlayer()) {
             player.setHand(new Hand());
         }
@@ -394,6 +417,21 @@ public class GameController {
         placeBetBox.setVisible(true);
         controlGroup.setVisible(false);
         newRoundButton.setVisible(false);
+    }
+
+
+    public void checkBrokePlayers(){
+        player.removeIf(p -> p.getBalance() <= 0);
+        firstPlayerName.setText("");
+        secondPlayerName.setText("");
+        thirdPlayerName.setText("");
+        firstPlayerBet.setText("");
+        secondPlayerBet.setText("");
+        thirdPlayerBet.setText("");
+        firstPlayerBalance.setText("");
+        secondPlayerBalance.setText("");
+        thirdPlayerBalance.setText("");
+        placePlayers();
     }
 
     public void revealDealerCard () {
