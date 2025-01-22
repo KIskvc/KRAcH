@@ -16,6 +16,6 @@ public class Dealer extends BasePlayer {
                 break;
             }
         }
-        game.setDeck(deck);
+        //game.setDeck(deck);
     }
 }

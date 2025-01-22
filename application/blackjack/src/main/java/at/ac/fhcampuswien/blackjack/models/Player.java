@@ -4,12 +4,14 @@ package at.ac.fhcampuswien.blackjack.models;
 public class Player extends BasePlayer {
     private int balance;
     private int currentBet;
+    private boolean hasDoubled;
 
     // Konstruktor
     public Player(String name, int balance) {
         super(name);
         this.balance = balance;
         this.currentBet = 0;
+        this.hasDoubled = false;
     }
 
     // Getter und Setter
@@ -70,9 +72,18 @@ public class Player extends BasePlayer {
             balance -= doubleAmount;
             currentBet += doubleAmount;
             System.out.println(name + " doubles the bet to " + doubleAmount);
+            hasDoubled = true;
             //hit(deck);
         } else {
             System.out.println(name + " does not have enough balance to double.");
         }
+    }
+
+    public boolean isHasDoubled() {
+        return hasDoubled;
+    }
+
+    public void setHasDoubled(boolean hasDoubled) {
+        this.hasDoubled = hasDoubled;
     }
 }
