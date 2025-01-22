@@ -26,4 +26,9 @@ public abstract class BasePlayer {
     }
 
     public abstract void playTurn(Game game);
+
+    public boolean hasBlackJack() {
+        int score = this.hand.getCurrentScore();
+        return score == 21;
+    }
 }

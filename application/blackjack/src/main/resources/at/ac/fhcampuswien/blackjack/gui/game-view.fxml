@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -15,9 +16,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<?import javafx.scene.layout.HBox?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.TextField?>
 <VBox prefHeight="844.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="at.ac.fhcampuswien.blackjack.gui.GameController">
    <Pane maxWidth="1200.0" prefHeight="844.0">
       <children>
@@ -27,97 +25,99 @@
                <Image url="@../../../../../images/game_screen.png" />
             </image>
          </ImageView>
-
-         <Button fx:id="hit" layoutX="50.0" layoutY="787.0" mnemonicParsing="false" onAction="#hit" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #8B0000; -fx-background-radius: 15px;" text="HIT" textAlignment="CENTER" textFill="WHITE">
-            <font>
-               <Font name="Arial" size="20.0" />
-            </font>
-            <effect>
-               <DropShadow height="50.0" offsetX="5.0" offsetY="5.0" radius="24.5" width="50.0">
-                  <color>
-                     <Color opacity="0.55" />
-                  </color>
-               </DropShadow>
-            </effect>
-            <cursor>
-               <Cursor fx:constant="HAND" />
-            </cursor>
-         </Button>
-
-         <Button fx:id="stand" layoutX="200.0" layoutY="787.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0"
-                 style="-fx-background-color: #8B0000; -fx-background-radius: 15px;"
-                 text="STAND" textAlignment="CENTER" textFill="WHITE" onAction="#handleStandButton">
-            <font>
-               <Font name="Arial" size="20.0" />
-            </font>
-            <effect>
-               <DropShadow height="50.0" offsetX="5.0" offsetY="5.0" radius="24.5" width="50.0">
-                  <color>
-                     <Color opacity="0.55" />
-                  </color>
-               </DropShadow>
-            </effect>
-            <cursor>
-               <Cursor fx:constant="HAND" />
-            </cursor>
-         </Button>
-
-         <Button fx:id="doppelt" layoutX="350.0" layoutY="787.0" mnemonicParsing="false" onAction="#doubleDown" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #8B0000; -fx-background-radius: 15px;" text="DOUBLE" textAlignment="CENTER" textFill="WHITE">
-            <font>
-               <Font name="Arial" size="20.0" />
-            </font>
-            <effect>
-               <DropShadow height="50.0" offsetX="5.0" offsetY="5.0" radius="24.5" width="50.0">
-                  <color>
-                     <Color opacity="0.55" />
-                  </color>
-               </DropShadow>
-            </effect>
-            <cursor>
-               <Cursor fx:constant="HAND" />
-            </cursor>
-         </Button>
-
-         <Button fx:id="split" layoutX="500.0" layoutY="787.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #8B0000; -fx-background-radius: 15px;" text="SPLIT" textAlignment="CENTER" textFill="WHITE">
-            <font>
-               <Font name="Arial" size="20.0" />
-            </font>
-            <effect>
-               <DropShadow height="50.0" offsetX="5.0" offsetY="5.0" radius="24.5" width="50.0">
-                  <color>
-                     <Color opacity="0.55" />
-                  </color>
-               </DropShadow>
-            </effect>
-            <cursor>
-               <Cursor fx:constant="HAND" />
-            </cursor>
-         </Button>
-
-         <Button fx:id="leave" layoutX="1060.0" layoutY="787.0" mnemonicParsing="false" onAction="#handleLeaveButton" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #8B0000; -fx-background-radius: 15px;" text="LEAVE" textAlignment="CENTER" textFill="WHITE">
-            <font>
-               <Font name="Arial" size="20.0" />
-            </font>
-            <effect>
-               <DropShadow height="50.0" offsetX="5.0" offsetY="5.0" radius="24.5" width="50.0">
-                  <color>
-                     <Color opacity="0.55" />
-                  </color>
-               </DropShadow>
-            </effect>
-            <cursor>
-               <Cursor fx:constant="HAND" />
-            </cursor>
-         </Button>
+         <Group fx:id="controlGroup" layoutX="31.0" layoutY="768.0" visible="false">
+            <children>
+      
+                     <Button fx:id="hit" layoutX="19.0" layoutY="19.0" mnemonicParsing="false" onAction="#hit" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #8B0000; -fx-background-radius: 15px;" text="HIT" textAlignment="CENTER" textFill="WHITE">
+                  <font>
+                     <Font name="Arial" size="20.0" />
+                  </font>
+                  <effect>
+                     <DropShadow height="50.0" offsetX="5.0" offsetY="5.0" radius="24.5" width="50.0">
+                        <color>
+                           <Color opacity="0.55" />
+                        </color>
+                     </DropShadow>
+                  </effect>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
+               </Button>
+      
+                     <Button fx:id="stand" layoutX="169.0" layoutY="19.0" mnemonicParsing="false" onAction="#handleStandButton" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #8B0000; -fx-background-radius: 15px;" text="STAND" textAlignment="CENTER" textFill="WHITE">
+                  <font>
+                     <Font name="Arial" size="20.0" />
+                  </font>
+                  <effect>
+                     <DropShadow height="50.0" offsetX="5.0" offsetY="5.0" radius="24.5" width="50.0">
+                        <color>
+                           <Color opacity="0.55" />
+                        </color>
+                     </DropShadow>
+                  </effect>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
+               </Button>
+      
+                     <Button fx:id="doppelt" layoutX="319.0" layoutY="19.0" mnemonicParsing="false" onAction="#doubleDown" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #8B0000; -fx-background-radius: 15px;" text="DOUBLE" textAlignment="CENTER" textFill="WHITE">
+                  <font>
+                     <Font name="Arial" size="20.0" />
+                  </font>
+                  <effect>
+                     <DropShadow height="50.0" offsetX="5.0" offsetY="5.0" radius="24.5" width="50.0">
+                        <color>
+                           <Color opacity="0.55" />
+                        </color>
+                     </DropShadow>
+                  </effect>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
+               </Button>
+      
+                     <Button fx:id="split" layoutX="469.0" layoutY="19.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #8B0000; -fx-background-radius: 15px;" text="SPLIT" textAlignment="CENTER" textFill="WHITE">
+                  <font>
+                     <Font name="Arial" size="20.0" />
+                  </font>
+                  <effect>
+                     <DropShadow height="50.0" offsetX="5.0" offsetY="5.0" radius="24.5" width="50.0">
+                        <color>
+                           <Color opacity="0.55" />
+                        </color>
+                     </DropShadow>
+                  </effect>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
+               </Button>
+      
+                     <Button fx:id="leave" layoutX="1029.0" layoutY="19.0" mnemonicParsing="false" onAction="#handleLeaveButton" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #8B0000; -fx-background-radius: 15px;" text="LEAVE" textAlignment="CENTER" textFill="WHITE">
+                  <font>
+                     <Font name="Arial" size="20.0" />
+                  </font>
+                  <effect>
+                     <DropShadow height="50.0" offsetX="5.0" offsetY="5.0" radius="24.5" width="50.0">
+                        <color>
+                           <Color opacity="0.55" />
+                        </color>
+                     </DropShadow>
+                  </effect>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
+               </Button>
+            </children>
+         </Group>
          <HBox fx:id="secondHand" alignment="CENTER" layoutX="500.0" layoutY="576.0" prefHeight="70.0" prefWidth="180.0" />
-         <HBox fx:id="thirdHand" alignment="CENTER" layoutX="230.0" layoutY="414.0" prefHeight="70.0" prefWidth="180.0" rotate="90.0" />
+         <HBox fx:id="thirdHand" alignment="CENTER" layoutX="230.0" layoutY="414.0" maxHeight="70.0" maxWidth="180.0" prefHeight="70.0" prefWidth="180.0" rotate="90.0" />
          <HBox fx:id="firstHand" alignment="CENTER" layoutX="795.0" layoutY="476.0" prefHeight="70.0" prefWidth="180.0" rotate="270.0" />
          <ImageView fitWidth="50.0" layoutX="753.0" layoutY="324.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@../../../../../cards/back.png" />
             </image>
          </ImageView>
-         <HBox fx:id="dealerHand" alignment="CENTER" layoutX="500.0" layoutY="324.0" prefHeight="70.0" prefWidth="180.0" rotate="180.0" />
+         <HBox fx:id="dealerHand" alignment="CENTER_LEFT" layoutX="500.0" layoutY="324.0" prefHeight="70.0" prefWidth="180.0" rotate="180.0" />
          <Button fx:id="playButton" layoutX="525.0" layoutY="449.0" mnemonicParsing="false" onAction="#initGame" prefWidth="150.0" style="-fx-background-color: #026D36; -fx-background-radius: 20px; -fx-opacity: 0.8;" text="Play" textAlignment="CENTER" textFill="WHITE">
             <font>
                <Font name="Arial" size="24.0" />
@@ -130,7 +130,7 @@
             </opaqueInsets>
          </Button>
          <!-- placeBet -->
-         <VBox fx:id="placeBetBox" layoutX="424.0" layoutY="75.0" prefHeight="135.0" prefWidth="332.0">
+         <VBox fx:id="placeBetBox" layoutX="424.0" layoutY="75.0" prefHeight="135.0" prefWidth="332.0" visible="false">
             <children>
                <Pane minHeight="-Infinity" minWidth="-Infinity" prefHeight="133.0" prefWidth="223.0" style="-fx-background-color: #8B0000; -fx-background-radius: 10px;">
                   <children>
@@ -175,7 +175,69 @@
             </font>
          </Label>
          <!-- New TextField for displaying status -->
-         <TextField fx:id="statusTextField" layoutX="50.0" layoutY="720.0" prefWidth="1100.0" editable="false" style="-fx-background-color: #f0f0f0; -fx-border-color: #8B0000; -fx-border-radius: 5px;" />
+         <TextField fx:id="statusTextField" alignment="CENTER" editable="false" layoutX="372.0" layoutY="457.0" prefHeight="27.0" prefWidth="448.0" style="-fx-background-color: transparent; -fx-text-fill: #FFAB1B;" visible="false">
+            <font>
+               <Font name="System Bold" size="18.0" />
+            </font></TextField>
+         <VBox prefHeight="135.0" prefWidth="210.0">
+            <children>
+               <TextField editable="false" style="-fx-background-color: transparent; -fx-text-fill: black;" text="Player">
+                  <font>
+                     <Font name="System Bold" size="36.0" />
+                  </font>
+                  <cursor>
+                     <Cursor fx:constant="NONE" />
+                  </cursor>
+                  <padding>
+                     <Insets bottom="5.0" left="20.0" right="5.0" top="5.0" />
+                  </padding>
+               </TextField>
+               <TextField fx:id="firstPlayerName" editable="false" style="-fx-background-color: transparent; -fx-text-fill: #43B6D5;">
+                  <font>
+                     <Font name="System Bold" size="24.0" />
+                  </font>
+                  <cursor>
+                     <Cursor fx:constant="NONE" />
+                  </cursor>
+                  <padding>
+                     <Insets bottom="5.0" left="20.0" right="5.0" top="5.0" />
+                  </padding>
+               </TextField>
+               <TextField fx:id="secondPlayerName" editable="false" style="-fx-background-color: transparent; -fx-text-fill: #F29B01;">
+                  <font>
+                     <Font name="System Bold" size="24.0" />
+                  </font>
+                  <cursor>
+                     <Cursor fx:constant="NONE" />
+                  </cursor>
+                  <padding>
+                     <Insets bottom="5.0" left="20.0" right="5.0" top="5.0" />
+                  </padding>
+               </TextField>
+               <TextField fx:id="thirdPlayerName" editable="false" style="-fx-background-color: transparent; -fx-text-fill: #ED1C24;">
+                  <font>
+                     <Font name="System Bold" size="24.0" />
+                  </font>
+                  <cursor>
+                     <Cursor fx:constant="NONE" />
+                  </cursor>
+                  <padding>
+                     <Insets bottom="5.0" left="20.0" right="5.0" top="5.0" />
+                  </padding>
+               </TextField>
+            </children>
+         </VBox>
+         <Button fx:id="newRoundButton" layoutX="496.0" layoutY="511.0" mnemonicParsing="false" onAction="#reinitializeGame" prefWidth="200.0" style="-fx-background-color: #026D36; -fx-background-radius: 20px; -fx-opacity: 0.8;" text="New Round" textAlignment="CENTER" textFill="WHITE" visible="false">
+            <font>
+               <Font name="Arial" size="24.0" />
+            </font>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+            <opaqueInsets>
+               <Insets />
+            </opaqueInsets>
+         </Button>
 
       </children>
    </Pane>

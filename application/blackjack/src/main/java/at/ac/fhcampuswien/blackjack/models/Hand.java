@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Hand {
 
     private ArrayList<Card> cards;;
-    private ArrayList<ArrayList<Card>> splittedCards;;
+    private ArrayList<ArrayList<Card>> splittedCards;
     private int currentScore;
 
     public Hand() {
